@@ -3,7 +3,7 @@ name: learn
 description: The full Socratic learn-flow for ANY topic (code, sources, general study) — resume/triage/calibrate → baited concept map → depth-first dialogue → active-recall checks → human-gated, auto-tagged Anki cards and session log captured to the Logseq journal. One step at a time, user drives. Also handles quick "just card this" requests via Phase 4 alone. Never writes production code.
 argument-hint: [topic or concept to learn — or "cards: <focus>" to just record flashcards]
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash(date:*)
-version: 0.5.0
+version: 0.5.1
 tags: [learning, teaching, spaced-repetition, logseq, anki]
 last-tested: 2026-07-03
 ---
@@ -62,11 +62,15 @@ once where to capture cards and logs, then use that for the session.
 Capture goes to TODAY'S JOURNAL page (create it if missing) — never to
 dedicated deck pages. Each session is one outline block linked to its
 multi-level topic, so it automatically surfaces on the topic's page as a
-linked reference. TAB indentation, Logseq outline style:
+linked reference. The `cards` group carries a `deck::` property naming the
+topic (`/` becomes an Anki subdeck separator), so the Logseq→Anki sync files
+the cards under the topic deck instead of a day-named deck. TAB indentation,
+Logseq outline style:
 
 ```text
 - [[<Topic/Subtopic>]] learn session #learn
 	- cards
+	  deck:: <Topic/Subtopic>
 		- <question> #card #<topic> #<topic>/<concept> #q/<type>
 			- <answer>
 	- log
@@ -164,9 +168,10 @@ never ask:
 Get today's date with `date +%F`. Before proposing, search the vault for
 existing cards on this topic (the topic page and recent journals) and skip
 anything already covered — no duplicates. Append the approved cards under
-today's journal session block's `cards` group (see Logseq capture above).
-If I say I import to Anki by CSV instead of the Logseq sync, switch to
-`front<TAB>back<TAB>tags` with space-separated tags using `::` hierarchy.
+today's journal session block's `cards` group with its `deck::` property set
+to the topic (see Logseq capture above). If I say I import to Anki by CSV
+instead of the Logseq sync, switch to `front<TAB>back<TAB>tags` with
+space-separated tags using `::` hierarchy.
 
 ### Phase 5 — Interactive practice (if applicable)
 
