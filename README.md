@@ -1,0 +1,69 @@
+# agent-kit
+
+Personal Claude Code plugin marketplace: reusable agent assets (skills,
+subagents, MCP configs), git-versioned, installable into any of my projects.
+See `spec.md` for scope and `CLAUDE.md` for conventions.
+
+## Layout
+
+- `.claude-plugin/marketplace.json` — marketplace manifest.
+- `plugins/<name>/` — one directory per plugin.
+  - `.claude-plugin/plugin.json` — plugin manifest (only this file lives here).
+  - `skills/<skill>/SKILL.md` — invocable skills.
+  - `agents/*.md` — subagents.
+  - `.mcp.json` — MCP server configs (at plugin root).
+- `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
+- `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
+  `about-me.md` holds the user profile — it is gitignored (personal data
+  never publishes); copy `about-me.example.md`, fill it in, and paste its body
+  into `~/.claude/CLAUDE.md` on each machine. Skills reference the profile
+  (language, knowledge-base location) instead of embedding it.
+
+## Install into a project
+
+```text
+/plugin marketplace add <path-or-git-url-of-this-repo>
+/plugin install core@agent-kit
+/reload-plugins
+```
+
+Note: from a session inside this repo, use `/plugin marketplace add ./` — the
+trailing slash is required (bare `.` resolves against the parent directory and
+fails). `/reload-plugins` is needed to apply a fresh install.
+
+After editing assets locally:
+
+```text
+/plugin marketplace update agent-kit
+/reload-plugins
+```
+
+## Add a new asset
+
+1. Decide the destination:
+   - Invocable by the agent → a skill: `plugins/<plugin>/skills/<name>/SKILL.md`.
+   - Subagent → `plugins/<plugin>/agents/<name>.md`.
+   - Copy-paste chat prompt → `prompts/<name>.md`.
+2. Use kebab-case names; skill file is exactly `SKILL.md`.
+3. Every asset carries required frontmatter:
+
+   ```yaml
+   ---
+   name: kebab-case-name
+   description: one line
+   version: 0.1.0
+   tags: [tag1, tag2]
+   last-tested: YYYY-MM-DD
+   ---
+   ```
+
+4. New plugin? Add `plugins/<name>/.claude-plugin/plugin.json` and register it
+   in `.claude-plugin/marketplace.json`.
+5. Validate JSON (`python3 -m json.tool <file>.json`), bump `version` on any
+   behavior change, and commit.
+
+## Sharing
+
+Private by default. To share a plugin, publish it (or this repo) to a location
+of your choice; the marketplace entry's `source` decides what consumers pull.
+No CI/publishing pipeline in v1.

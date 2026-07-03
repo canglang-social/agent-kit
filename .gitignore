@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+
+# Personal data — lives only on this machine, never published
+snippets/about-me.md

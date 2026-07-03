@@ -1,0 +1,9 @@
+{
+  "name": "core",
+  "description": "Core reusable skills and agents for everyday agent work",
+  "version": "0.5.1",
+  "author": {
+    "name": "Canglangzhuoxi",
+    "email": "canglangzhuoxi@gmail.com"
+  }
+}

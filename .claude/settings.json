@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // .tool_response.filePath // empty'); case \"$f\" in */plugins/*|*/.claude-plugin/*) claude plugin marketplace update agent-kit >/dev/null 2>&1 && echo '{\"systemMessage\":\"agent-kit marketplace updated — run /reload-plugins to apply in this session\"}' || true;; esac",
+            "timeout": 60,
+            "statusMessage": "Updating agent-kit marketplace…"
+          }
+        ]
+      }
+    ]
+  }
+}

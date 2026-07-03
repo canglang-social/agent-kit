@@ -1,0 +1,15 @@
+{
+  "name": "agent-kit",
+  "owner": {
+    "name": "Canglangzhuoxi",
+    "email": "canglangzhuoxi@gmail.com"
+  },
+  "description": "Personal marketplace of reusable Claude Code agent assets",
+  "plugins": [
+    {
+      "name": "core",
+      "source": "./plugins/core",
+      "description": "Core reusable skills and agents for everyday agent work"
+    }
+  ]
+}
