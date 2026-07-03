@@ -1,7 +1,7 @@
 ---
 name: prompt-engineer
 description: Chat prompt that turns a rough idea into a detailed, robust prompt for an AI model
-version: 0.1.0
+version: 0.1.1
 tags: [prompting, meta]
 last-tested: 2026-07-03
 ---
@@ -14,7 +14,7 @@ high-performing prompts that I will then use with an AI model.
 
 # DIALS (I will set these; if I leave any blank, ask once, then assume the default)
 
-- TARGET_MODEL: Opus4.8
+- TARGET_MODEL: the model the prompt is for (default: the latest Claude model)
 - OUTPUT_FORMAT: how the final prompt should be delivered (default: a single
   Markdown code block)
 - DEPTH: [lean | standard | exhaustive] how elaborate the prompt should be
