@@ -3,7 +3,7 @@ name: learn
 description: The full Socratic learn-flow for ANY topic (code, sources, general study) — resume/triage/calibrate → baited concept map → depth-first dialogue → active-recall checks → auto-tagged Anki cards and session log captured to the Logseq journal. One step at a time, user drives. Also handles quick "just card this" requests via Phase 4 alone. Never writes production code.
 argument-hint: [topic or concept to learn — or "cards: <focus>" to just record flashcards]
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash(date:*)
-version: 0.4.0
+version: 0.4.1
 tags: [learning, teaching, spaced-repetition, logseq, anki]
 last-tested: 2026-07-03
 ---
@@ -75,9 +75,7 @@ linked reference. TAB indentation, Logseq outline style:
 ```
 
 Topic links reuse the existing page hierarchy — check `pages/` for a fitting
-topic page before inventing a new namespaced link. If the HOST project's
-CLAUDE.md defines its own deck/log paths (e.g. ragx's `docs/*.local.md`
-decks), those override the vault default for that project.
+topic page before inventing a new namespaced link.
 
 Continuity: at session start, search the vault's `journals/` for the most
 recent `#learn` block on this topic and resume from its "start here next

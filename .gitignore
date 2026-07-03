@@ -1,5 +1,8 @@
 .DS_Store
 *.log
 
+# Session worktrees created by Claude Code background jobs
+.claude/worktrees/
+
 # Personal data — lives only on this machine, never published
 snippets/about-me.md
