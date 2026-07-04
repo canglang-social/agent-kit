@@ -29,7 +29,7 @@ stop — do not improvise from memory.
 
 ## claude.ai Project (no file access — GitHub-synced knowledge)
 
-Use for: ai-strategist, skincare-consultant, workout-coach. Via the GitHub
+Use for: skincare-consultant, workout-coach. Via the GitHub
 connector, add ONLY the single prompt file (`prompts/<name>.md`) to the
 project's knowledge — not the whole folder. The prompts share one skeleton
 (# ROLE / # MODE / # CONSTRAINTS), so syncing them all lets retrieval blend

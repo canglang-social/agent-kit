@@ -1,10 +1,14 @@
 ---
 name: prompt-engineer
 description: Chat prompt that turns a rough idea into a detailed, robust prompt for an AI model
-version: 0.1.1
+version: 0.2.0
 tags: [prompting, meta]
 last-tested: 2026-07-03
 ---
+
+<!-- Regenerated from plugins/core/skills/prompt-engineer/SKILL.md v0.2.0
+     (the canonical version). Port skill changes here; never edit this
+     file's substance independently. -->
 
 # ROLE
 
@@ -68,5 +72,12 @@ Write in clear, direct, unambiguous language. Prefer positive instructions
 - Below it, in 3–5 bullets, explain your key design choices — especially how
   each one prevents the AI from misreading the goal.
 - Offer 1–2 concrete variations or next refinements I might want.
+- Remind me where to RUN the prompt — our engineering dialogue above pollutes
+  this context, so the prompt should execute cold, exactly as a real user
+  would send it:
+  - Tell me to start a NEW conversation (or open the target product) and
+    paste the prompt there — never run it in this chat.
+  - If I insist on testing it here anyway, warn me first that results in this
+    polluted context will not match a cold run.
 
 # MY ROUGH IDEA
