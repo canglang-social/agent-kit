@@ -62,6 +62,18 @@ After editing assets locally:
 5. Validate JSON (`python3 -m json.tool <file>.json`), bump `version` on any
    behavior change, and commit.
 
+## Deployed prompts — the repo is upstream
+
+Chat prompts in `prompts/` also live as pasted copies inside Claude Projects
+/ Cowork projects, and the two WILL drift unless one side is authoritative.
+The convention: **edit here first, bump `version`, re-paste into the
+deployment**, then update `last-tested` after a real session. Never tweak
+only the deployed copy — if a live session forces a quick fix, port it back
+here the same day. Settings a prompt "confirms and remembers" (e.g.
+daily-review's SETTINGS block) must be baked back into the deployed project
+instructions, not left in chat memory. New prompts start from
+`snippets/prompt-preamble.md`, the canonical language + profile block.
+
 ## Sharing
 
 Private by default. To share a plugin, publish it (or this repo) to a location
