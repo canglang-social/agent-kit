@@ -47,8 +47,12 @@ knowledge (one click). The instructions are never edited again.
 ## Notes
 
 - The user profile (`snippets/about-me.md`) is gitignored, so GitHub sync
-  CANNOT deliver it — add its body to each claude.ai project's knowledge
-  manually as a separate doc, and re-paste it there when the profile changes.
+  CANNOT deliver it. Deliver it via ONE Google Drive doc (titled "about-me
+  profile — Claude project knowledge") added to each claude.ai project's
+  knowledge through the Drive connector — one doc serves all projects. The
+  Drive doc is a MIRROR: the repo snippet stays upstream; when it changes,
+  update the Drive doc and bump its "Last synced" line. Manual paste is the
+  fallback where the Drive connector isn't available.
 - The "say so and stop" clause makes a broken loader fail loudly. Without it,
   the model improvises a plausible-but-unversioned ghost prompt and you may
   not notice for weeks.
