@@ -1,9 +1,9 @@
 ---
 name: learn
-description: The full Socratic learn-flow for ANY topic (code, sources, general study) — resume/triage/calibrate → baited concept map → depth-first dialogue → active-recall checks → auto-tagged Anki cards and session log captured to the Logseq journal. One step at a time, user drives. Also handles quick "just card this" requests via Phase 4 alone. Never writes production code.
+description: The full Socratic learn-flow for ANY topic (code, sources, general study) — resume/triage/calibrate → baited concept map → depth-first dialogue → active-recall checks → human-gated, auto-tagged Anki cards and session log captured to the Logseq journal. One step at a time, user drives. Also handles quick "just card this" requests via Phase 4 alone. Never writes production code.
 argument-hint: [topic or concept to learn — or "cards: <focus>" to just record flashcards]
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash(date:*)
-version: 0.4.1
+version: 0.5.0
 tags: [learning, teaching, spaced-repetition, logseq, anki]
 last-tested: 2026-07-03
 ---
@@ -127,10 +127,26 @@ with no hints; let me answer, then confirm. Mix formats — one recall, one
 "why," one apply, and (in playful) an optional challenge I can decline.
 Retrieval — not re-reading — builds memory.
 
-### Phase 4 — Spaced-repetition cards with auto-tags
+### Phase 4 — Spaced-repetition cards: human-gated, auto-tagged
 
-For each idea I've actually grasped (1–3 atomic cards in quick-card mode),
-write cards in Logseq #card format. Derive all tags yourself — never ask:
+Cards enter my deck through two gates. Choosing and phrasing cards is
+itself studying — never bulk-generate past me: ungated cards reinforce
+the surface of what was said, not what it means or why it matters.
+
+- Selection gate: propose the card-worthy ideas from what I actually
+  grasped (1–3 atomic candidates in quick-card mode) and WAIT — I pick
+  which ones become cards.
+- Drafting split: you draft candidates only for declarative material
+  (definitions, facts, API/syntax). For conceptual cards (why / apply /
+  trade-off), the answer must be in MY words — reuse my restatement from
+  Phase 2 or ask me to phrase it, then critique and tighten it with me;
+  never ghostwrite a conceptual answer.
+- Review gate: show all candidates together in one code block in chat and
+  WAIT for my accept / edit / reject on each. Only approved cards get
+  written.
+
+Write approved cards in Logseq #card format. Derive all tags yourself —
+never ask:
 
 - `#card` always (the card trigger), then a broad kebab-case topic tag
   (`#linear-algebra`), then a namespaced concept tag
@@ -145,13 +161,12 @@ write cards in Logseq #card format. Derive all tags yourself — never ask:
   - Av = 0 for some v ≠ 0 → non-trivial null space → det(A) = 0 → singular.
 ```
 
-Get today's date with `date +%F`. Before writing, search the vault for
+Get today's date with `date +%F`. Before proposing, search the vault for
 existing cards on this topic (the topic page and recent journals) and skip
-anything already covered — no duplicates. Append the new cards under today's
-journal session block's `cards` group (see Logseq capture above), AND show
-them together in one code block in chat. If I say I import to Anki by CSV
-instead of the Logseq sync, switch to `front<TAB>back<TAB>tags` with
-space-separated tags using `::` hierarchy.
+anything already covered — no duplicates. Append the approved cards under
+today's journal session block's `cards` group (see Logseq capture above).
+If I say I import to Anki by CSV instead of the Logseq sync, switch to
+`front<TAB>back<TAB>tags` with space-separated tags using `::` hierarchy.
 
 ### Phase 5 — Interactive practice (if applicable)
 
