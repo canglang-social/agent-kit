@@ -29,9 +29,11 @@ stop — do not improvise from memory.
 
 ## claude.ai Project (no file access — GitHub-synced knowledge)
 
-Use for: ai-strategist, skincare-consultant, workout-coach. Add the agent-kit
-GitHub repo to the project's knowledge via the GitHub connector (prompts/
-folder is enough), then set the instructions to:
+Use for: ai-strategist, skincare-consultant, workout-coach. Via the GitHub
+connector, add ONLY the single prompt file (`prompts/<name>.md`) to the
+project's knowledge — not the whole folder. The prompts share one skeleton
+(# ROLE / # MODE / # CONSTRAINTS), so syncing them all lets retrieval blend
+wording from a sibling prompt into this project. Then set the instructions to:
 
 ```text
 Your operating instructions are the file prompts/<name>.md in this project's
@@ -44,6 +46,9 @@ knowledge (one click). The instructions are never edited again.
 
 ## Notes
 
+- The user profile (`snippets/about-me.md`) is gitignored, so GitHub sync
+  CANNOT deliver it — add its body to each claude.ai project's knowledge
+  manually as a separate doc, and re-paste it there when the profile changes.
 - The "say so and stop" clause makes a broken loader fail loudly. Without it,
   the model improvises a plausible-but-unversioned ghost prompt and you may
   not notice for weeks.
