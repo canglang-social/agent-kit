@@ -12,9 +12,9 @@ raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
 This repo is the tool layer of the owner's personal repo ecosystem
 (full private map: ai-mission-control/ECOSYSTEM.md) — one line each:
 
-- agent-kit (this repo) — HOW I work: reusable Claude Code assets,
-  consumed everywhere via `/plugin install`, never file-copied into
-  consumer repos.
+- agent-kit (this repo) — Claude Code plugin marketplace: holds my
+  reusable agent assets (skills, subagents, chat prompts), consumed
+  everywhere via `/plugin install`, never file-copied into consumer repos.
 - ai-mission-control — WHAT I've built: project registry, reuse
   extraction, scaffolding; indexes this repo like any other project.
 
