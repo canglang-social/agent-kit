@@ -7,6 +7,23 @@ assets (skills, subagents, MCP configs). It ships markdown/JSON config only —
 no application code. Assets install into other projects via `/plugin`. We standardize on **skills** for invocable assets (no legacy `commands/`);
 raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
 
+## Ecosystem position
+
+This repo is the tool layer of the owner's personal repo ecosystem
+(full private map: ai-mission-control/ECOSYSTEM.md) — one line each:
+
+- agent-kit (this repo) — HOW I work: reusable Claude Code assets,
+  consumed everywhere via `/plugin install`, never file-copied into
+  consumer repos.
+- ai-mission-control — WHAT I've built: project registry, reuse
+  extraction, scaffolding; indexes this repo like any other project.
+
+Flow touching this repo: the `learn` skill is the deep-study stage of a
+two-step learning pipeline — ai-mission-control's `/glossary` stages
+terms upstream as a quick capture queue; both write to the same journal
+at different depths. (No personal specifics here by design — this repo
+is public; see Do NOT below.)
+
 ## Structure (map, not full tree)
 
 - `.claude-plugin/marketplace.json` — marketplace manifest; lists `plugins/`.
