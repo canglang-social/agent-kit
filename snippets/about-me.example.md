@@ -7,9 +7,13 @@ last-tested: 2026-07-03
 ---
 
 <!-- Copy to snippets/about-me.md (gitignored — personal data never publishes)
-and fill it in. Then @import it from ~/.claude/CLAUDE.md with one line:
-@/path/to/agent-kit/snippets/about-me.md — live at every session, no re-sync.
-Where @import isn't available (e.g. project knowledge), paste the body. -->
+and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
+1. Claude Code: @import it from ~/.claude/CLAUDE.md with one line
+   (@/path/to/agent-kit/snippets/about-me.md) — live at every session.
+2. claude.ai project knowledge: keep ONE Google Doc mirror of the body and
+   paste updates into it (Google-native Docs can't be updated from disk).
+   Add the doc's URL to your copy's header so the paste is one click away.
+3. Record any other mirror in your copy's header checklist as you add it. -->
 
 ## About me (user profile)
 
