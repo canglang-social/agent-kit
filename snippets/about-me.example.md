@@ -6,8 +6,10 @@ tags: [profile, claude-md-fragment, template]
 last-tested: 2026-07-03
 ---
 
-<!-- Copy to snippets/about-me.md (gitignored — personal data never publishes),
-fill in, then paste everything BELOW this line into ~/.claude/CLAUDE.md. -->
+<!-- Copy to snippets/about-me.md (gitignored — personal data never publishes)
+and fill it in. Then @import it from ~/.claude/CLAUDE.md with one line:
+@/path/to/agent-kit/snippets/about-me.md — live at every session, no re-sync.
+Where @import isn't available (e.g. project knowledge), paste the body. -->
 
 ## About me (user profile)
 

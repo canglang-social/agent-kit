@@ -15,9 +15,11 @@ See `spec.md` for scope and `CLAUDE.md` for conventions.
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
   `about-me.md` holds the user profile — it is gitignored (personal data
-  never publishes); copy `about-me.example.md`, fill it in, and paste its body
-  into `~/.claude/CLAUDE.md` on each machine. Skills reference the profile
-  (language, knowledge-base location) instead of embedding it.
+  never publishes); copy `about-me.example.md`, fill it in, and @import it
+  from `~/.claude/CLAUDE.md` (one line:
+  `@/path/to/agent-kit/snippets/about-me.md` — live at every session, no
+  re-sync). Skills reference the profile (language, knowledge-base location)
+  instead of embedding it.
 
 ## Install into a project
 
@@ -64,14 +66,17 @@ After editing assets locally:
 
 ## Deployed prompts — the repo is upstream
 
-Chat prompts in `prompts/` also live as pasted copies inside Claude Projects
-/ Cowork projects, and the two WILL drift unless one side is authoritative.
-The convention: **edit here first, bump `version`, re-paste into the
-deployment**, then update `last-tested` after a real session. Never tweak
-only the deployed copy — if a live session forces a quick fix, port it back
-here the same day. Settings a prompt "confirms and remembers" (e.g.
-daily-review's SETTINGS block) must be baked back into the deployed project
-instructions, not left in chat memory. New prompts start from
+Chat prompts in `prompts/` are used by Claude Projects / Cowork projects.
+Prefer the loader pattern (`snippets/deployment-loaders.md`): the deployed
+instruction is a short pointer at the repo file, so editing here updates the
+deployment (Cowork: next session; claude.ai: one knowledge re-sync click)
+and the instruction itself never changes. If a surface can't reference the
+repo and needs a pasted copy: **edit here first, bump `version`, re-paste**
+— never tweak only the deployed copy; if a live session forces a quick fix,
+port it back the same day. Either way, update `last-tested` after a real
+session. Settings a prompt "confirms and remembers" (e.g. daily-review's
+SETTINGS block) must be baked back into the deployed project instructions,
+not left in chat memory. New prompts start from
 `snippets/prompt-preamble.md`, the canonical language + profile block.
 
 ## Sharing
