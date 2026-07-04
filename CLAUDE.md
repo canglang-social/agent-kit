@@ -10,16 +10,16 @@ raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
 ## Ecosystem position
 
 This repo is the tool layer of the owner's personal repo ecosystem
-(full private map: ai-mission-control/ECOSYSTEM.md) — one line each:
+(full private map: forge/ECOSYSTEM.md) — one line each:
 
 - agent-kit (this repo) — Claude Code plugin marketplace: holds my
   reusable agent assets (skills, subagents, chat prompts), consumed
   everywhere via `/plugin install`, never file-copied into consumer repos.
-- ai-mission-control — WHAT I've built: project registry, reuse
+- forge — WHAT I've built: project registry, reuse
   extraction, scaffolding; indexes this repo like any other project.
 
 Flow touching this repo: the `learn` skill is the deep-study stage of a
-two-step learning pipeline — ai-mission-control's `/glossary` stages
+two-step learning pipeline — forge's `/glossary` stages
 terms upstream as a quick capture queue; both write to the same journal
 at different depths. (No personal specifics here by design — this repo
 is public; see Do NOT below.)
