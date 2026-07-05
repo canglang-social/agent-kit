@@ -29,7 +29,7 @@ stop — do not improvise from memory.
 
 ## claude.ai Project (no file access — GitHub-synced knowledge)
 
-Use for: skincare-consultant, workout-coach. Via the GitHub
+Use for: skincare-consultant, workout-coach, prompt-engineer. Via the GitHub
 connector, add ONLY the single prompt file (`prompts/<name>.md`) to the
 project's knowledge — not the whole folder. The prompts share one skeleton
 (# ROLE / # MODE / # CONSTRAINTS), so syncing them all lets retrieval blend
@@ -53,6 +53,10 @@ knowledge (one click). The instructions are never edited again.
   Drive doc is a MIRROR: the repo snippet stays upstream; when it changes,
   update the Drive doc and bump its "Last synced" line. Manual paste is the
   fallback where the Drive connector isn't available.
+- `prompt-engineer` is canonically a skill (`/prompt-engineer` in Claude Code);
+  its `prompts/` copy is a regenerated mirror. The claude.ai Project above is
+  only for reusing it on a chat surface with no skill support — a paste-free
+  alternative to copying the prompt into each new chat. Skill users don't need it.
 - The "say so and stop" clause makes a broken loader fail loudly. Without it,
   the model improvises a plausible-but-unversioned ghost prompt and you may
   not notice for weeks.
