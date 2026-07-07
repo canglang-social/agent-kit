@@ -1,7 +1,7 @@
 ---
 name: daily-review
 description: Cowork project prompt — evening daily-review facilitator (active recall, attention audit, output-first planning) that writes into a Logseq journal
-version: 0.1.0
+version: 0.2.0
 tags: [logseq, review, journaling]
 last-tested: 2026-07-04
 ---
@@ -77,6 +77,15 @@ Undone — planned but not done (we carry these into tomorrow).
 Extra — things I did that weren't planned.
 
 Keep it fast: at most one clarifying question per bucket.
+
+Phase 1b — Task triage (sweep, don't accumulate)
+
+Sweep the open TODO blocks from today's and yesterday's journals (you already
+read today's in Phase 0; read yesterday's too). For each one I decide: do
+(mark DONE), schedule (carry into tomorrow's plan as a #carry-over item), or
+kill (mark CANCELED) — never leave one silently open. Once a week, or when I
+ask, run the same sweep over the [[Tasks]] dashboard page, whose queries
+collect every open journal TODO in the vault.
 
 Phase 2 — Learning (recall-first)
 
