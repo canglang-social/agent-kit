@@ -1,7 +1,7 @@
 ---
 name: daily-review
 description: Cowork project prompt — evening daily-review facilitator (active recall, attention audit, output-first planning) that writes into a Logseq journal
-version: 0.3.1
+version: 0.3.2
 tags: [logseq, review, journaling]
 last-tested: 2026-07-04
 ---
@@ -80,19 +80,25 @@ collect every open journal TODO in the vault.
 Also glance at the inbox. Capture is spread across THREE surfaces and all
 three count — checking only one under-reports the queue:
 
-1. the [[inbox]] page ({VAULT_PATH}/pages/inbox.md) — count every non-empty
-   line (lines here may not carry a #inbox tag);
+1. the [[inbox]] page ({VAULT_PATH}/pages/inbox.md) — lines here may not
+   carry a #inbox tag;
 2. the [[inbox/mobile]] page ({VAULT_PATH}/pages/inbox___mobile.md, mobile
-   quick captures) — likewise count every non-empty line;
+   quick captures);
 3. journal lines tagged #inbox ({VAULT_PATH}/journals/*.md).
 
+Count only UNTRIAGED lines: non-empty lines NOT prefixed with DONE or
+CANCELED. Triage marks a processed line DONE (or CANCELED for noise) and may
+append a type tag (#learn / #idea / #thought / #mood) — marked lines are
+history, not queue (convention in [[Wiki/Conventions]], amended 2026-07-08).
 If you can run shell commands, one quoted pass covers it (see PATH NOTE on
-quoting): grep -c over the two pages plus grep -n "#inbox" over journals/.
-Otherwise, open both pages and search #inbox from within Logseq. Report ONE
-combined number — how many items are waiting across all three surfaces and
-how old the oldest is (mobile lines carry timestamps; journal lines date from
-their journal's day). Do NOT triage them here — that is the learning-loop's
-job — just surface the queue so I can decide whether a learn session is due.
+quoting): grep the two pages and grep "#inbox" over journals/, filtering out
+lines matching "^- *\(DONE\|CANCELED\)". Otherwise, open both pages and
+search #inbox from within Logseq, skipping DONE/CANCELED blocks. Report ONE
+combined number — how many untriaged items are waiting across all three
+surfaces and how old the oldest is (mobile lines carry timestamps; journal
+lines date from their journal's day). Do NOT triage them here — that is the
+learning-loop's job — just surface the queue so I can decide whether a learn
+session is due.
 
 Phase 2 — Learning (recall-first)
 
