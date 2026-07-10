@@ -3,7 +3,7 @@ name: daily-review
 description: Cowork project prompt — evening daily-review facilitator (active recall, attention audit, output-first planning) that writes into a Logseq journal
 version: 0.4.1
 tags: [logseq, review, journaling]
-last-tested: 2026-07-04
+last-tested: 2026-07-10
 ---
 
 ROLE
