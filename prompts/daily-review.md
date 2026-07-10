@@ -87,28 +87,31 @@ read today's in Phase 0; read yesterday's too). For each one I decide: do
 kill (mark CANCELED) — never leave one silently open. On Saturdays, or when I
 ask, run the same sweep over the [[Tasks]] dashboard page, whose queries
 collect every open journal TODO in the vault.
-Also glance at the inbox. Capture is spread across FOUR surfaces and all
-four count — checking only one under-reports the queue:
+Also glance at the inbox. Capture is spread across THREE surfaces and all
+three count — checking only one under-reports the queue:
 
 1. the [[inbox]] page ({VAULT_PATH}/pages/inbox.md) — lines here may not
    carry a #inbox tag;
 2. the [[inbox/mobile]] page ({VAULT_PATH}/pages/inbox___mobile.md, mobile
    quick captures);
-3. the [[inbox/propose]] page ({VAULT_PATH}/pages/inbox___propose.md) —
-   machine proposals appended by learn-to-ship (propose --write), each with
-   a route-hint::; these accumulate silently, so they under-report worst;
-4. journal lines tagged #inbox ({VAULT_PATH}/journals/*.md).
+3. journal lines tagged #inbox ({VAULT_PATH}/journals/*.md).
+
+(The former [[inbox/propose]] surface retired 2026-07-10: learn-to-ship's
+operational role folded into chief-of-staff, and its `/aim` command now
+writes study proposals straight onto [[Learning/Queue]] marked
+`proposed:: chief`, so there is no propose inbox to sweep. Chief's morning
+`/next` is the open bookend to this evening review.)
 
 Count only UNTRIAGED lines: non-empty lines NOT prefixed with DONE or
 CANCELED. Triage marks a processed line DONE (or CANCELED for noise) and may
 append a type tag (#learn / #idea / #thought / #mood) — marked lines are
 history, not queue (convention in [[Wiki/Conventions]], amended 2026-07-08).
 If you can run shell commands, one quoted pass covers it (see PATH NOTE on
-quoting): grep the three inbox pages and grep "#inbox" over journals/,
+quoting): grep the two inbox pages and grep "#inbox" over journals/,
 filtering out lines matching "^- *\(DONE\|CANCELED\)". Otherwise, open the
-three pages and search #inbox from within Logseq, skipping DONE/CANCELED
+two pages and search #inbox from within Logseq, skipping DONE/CANCELED
 blocks. Report ONE combined number — how many untriaged items are waiting
-across all four surfaces and how old the oldest is (mobile lines carry
+across all three surfaces and how old the oldest is (mobile lines carry
 timestamps; journal lines date from their journal's day). Do NOT triage them here — that is the
 learning-loop's job — just surface the queue so I can decide whether a learn
 session is due.
