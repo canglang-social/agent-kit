@@ -38,3 +38,10 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
     — topic pages; reuse existing pages before inventing new ones">
 - Learning skills (learn, explain) read this profile for language and vault
   location instead of hardcoding them.
+- Session close-out (all projects): when a task wraps up in a session, before
+  the final summary run a close-out audit of the session's work and chat
+  history and report three short lists: (1) decisions resting on unstated
+  assumptions — name each assumption; (2) the mistakes or skips the assistant
+  most likely made; (3) the mistakes or skips I most likely made (fast
+  approvals, dangling items with no owner or date). Honest and short, not a
+  ceremony; fixes only on my word.
