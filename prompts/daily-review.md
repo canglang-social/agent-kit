@@ -79,6 +79,12 @@ Keep it fast: at most one clarifying question per bucket.
 This reconciliation is not just talk — Phase 6 writes it back into the plan
 block's own markers (single-live-TODO), so remember the verdict per item.
 
+Spine check (adopted 2026-07-19, weekly review): after the reconciliation,
+one factual question — did the morning spine hold today (/next → /daily →
+apply 2h cap → 20-min spoken practice; Wednesday: the hard-question drill
+in that slot)? A miss is recorded, not judged — it is predict-and-review
+data for Saturday's weekly review.
+
 Phase 1b — Task triage (sweep, don't accumulate)
 
 Sweep the open task blocks (TODO / LATER / DOING / NOW) from today's and yesterday's journals (you already
