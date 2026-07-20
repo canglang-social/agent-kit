@@ -51,7 +51,12 @@ is public; see Do NOT below.)
     description: one line
     version: 0.1.0
     tags: [tag1, tag2]
-    last-tested: YYYY-MM-DD
+    last-tested: YYYY-MM-DD   # only where a real session can be said to have
+                              # happened: prompts with a cadence, role
+                              # doctrines. Audited by ai-chief-of-staff, which
+                              # warns when the newest commit postdates it.
+                              # Omit on always-live files (an @imported
+                              # snippet can never honestly go stale).
     ---
 
 ## Conventions
