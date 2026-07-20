@@ -1,9 +1,8 @@
 ---
 name: deployment-loaders
 description: Thin-loader instruction blocks — a deployment references its prompt in this repo instead of containing a pasted copy, so repo edits update the deployment
-version: 0.1.0
+version: 0.2.0
 tags: [prompting, deployment, template]
-last-tested: 2026-07-04
 ---
 
 # Deployment loaders
@@ -47,12 +46,22 @@ knowledge (one click). The instructions are never edited again.
 ## Notes
 
 - The user profile (`snippets/about-me.md`) is gitignored, so GitHub sync
-  CANNOT deliver it. Deliver it via ONE Google Drive doc (titled "about-me
-  profile — Claude project knowledge") added to each claude.ai project's
-  knowledge through the Drive connector — one doc serves all projects. The
-  Drive doc is a MIRROR: the repo snippet stays upstream; when it changes,
-  update the Drive doc and bump its "Last synced" line. Manual paste is the
-  fallback where the Drive connector isn't available.
+  CANNOT deliver it. Deliver it via ONE Google Drive file added to each
+  claude.ai project's knowledge through the Drive connector — one file
+  serves all projects. It must be a **.docx**, not markdown: the connector
+  does not ingest plain `.md`. Regenerate it from the snippet rather than
+  pasting:
+
+      cp <agent-kit>/snippets/about-me.md /tmp/about-me-profile.txt && \
+      textutil -convert docx /tmp/about-me-profile.txt -output \
+        "<Drive desktop path>/My Drive/about-me-profile-mirror.docx"
+
+  Overwriting in place keeps the Drive id stable, so the projects' knowledge
+  never needs repointing after the first setup, and Drive desktop sync does
+  the upload. The docx is a MIRROR — the repo snippet stays upstream.
+  (Superseded 2026-07-19: the old Google-native Doc mirror could not be
+  written from disk, so it was paste-only and drifted. It is retired; delete
+  it once every project's knowledge points at the docx.)
 - `prompt-engineer` is canonically a skill (`/prompt-engineer` in Claude Code);
   its `prompts/` copy is a regenerated mirror. The claude.ai Project above is
   only for reusing it on a chat surface with no skill support — a paste-free
@@ -65,3 +74,9 @@ knowledge (one click). The instructions are never edited again.
   every session start, no sync step at all.
 - `last-tested` in a prompt's frontmatter still gets bumped after a real
   session on the deployed surface; loaders don't change that convention.
+  It is now audited rather than trusted: ai-chief-of-staff warns when an
+  inventoried prompt's newest commit postdates its `last-tested` (edited but
+  untested). Carry the field only where a real session can be said to have
+  happened — prompts with a cadence, and role doctrines. Files whose use is
+  implicit and constant (`snippets/about-me.md`, @imported at every session)
+  drop it: a date that can never honestly go stale is decoration.
