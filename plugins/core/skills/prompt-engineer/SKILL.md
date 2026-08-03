@@ -3,7 +3,7 @@ name: prompt-engineer
 description: Transform a rough idea into a detailed, robust, high-performing prompt for an AI model. Use when the user asks to write, improve, or engineer a prompt; pass the rough idea as args.
 version: 0.2.0
 tags: [prompting, meta]
-last-tested: 2026-07-03
+last-tested: 2026-08-03
 ---
 
 # Prompt Engineer
