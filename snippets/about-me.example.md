@@ -1,7 +1,7 @@
 ---
 name: about-me-example
 description: Template for the user profile fragment in ~/.claude/CLAUDE.md — identity, language preference, knowledge-base conventions. Skills reference the profile instead of embedding personal data.
-version: 0.2.0
+version: 0.3.0
 tags: [profile, claude-md-fragment, template]
 last-tested: 2026-07-10
 ---
@@ -38,6 +38,14 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
     — topic pages; reuse existing pages before inventing new ones">
 - Learning skills (learn, explain) read this profile for language and vault
   location instead of hardcoding them.
+- Scheduling split (optional): <who assigns dates and times to work, e.g.
+  "the AI never assigns a day or clock time to work, anywhere. When a dated
+  commitment surfaces, my calendar gets ONLY the deadline pair — a lead-time
+  warning event + a due-date event; the task breakdown goes to my notes with
+  NO times; I assign every day and clock time myself. Routing, not a ban:
+  name the review surfaces where a time DOES get assigned — by me, inside
+  them. Standing practice blocks are mine too: created, resized, or killed
+  only at their gating review, never AI-placed">.
 - Session close-out (all projects): when a task wraps up in a session, before
   the final summary run a close-out audit of the session's work and chat
   history and report three short lists: (1) decisions resting on unstated
