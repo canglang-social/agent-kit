@@ -3,7 +3,7 @@ name: prompt-engineer
 description: Chat prompt that turns a rough idea into a detailed, robust prompt for an AI model
 version: 0.2.0
 tags: [prompting, meta]
-last-tested: 2026-07-03
+last-tested: 2026-08-03
 ---
 
 <!-- Regenerated from plugins/core/skills/prompt-engineer/SKILL.md v0.2.0
