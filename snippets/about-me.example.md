@@ -26,9 +26,23 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   DEFAULT in all chats, including Claude Code — each English paragraph followed
   by its <language> equivalent, matched in detail; pair key terms as term
   (translation) on first use; refine my English first if it has errors">.
-  Exceptions: code, shell commands, commit messages, and file contents stay
-  English-only; a trivial one-line confirmation may be English-only; drop to
-  plain English when I ask.
+  Exceptions: code, config, shell commands, commit messages, and the bodies
+  of documents stay English-only; a trivial one-line confirmation may be
+  English-only; drop to plain English when I ask. NOT an exception — see the
+  decision-doc rule below.
+- Decision docs carry a native-language head: the English-only exception
+  above covers code, config, shell commands and commit messages — it does
+  NOT cover documents whose whole purpose is for me to read them and decide.
+  Any memo, record, report, research artifact or brief that carries a
+  decision opens with a <native-language> summary block, placed after the
+  title and before the English body, with five lines: what must be decided /
+  the options or the verdict / the number it turns on / what I must do /
+  status (open, decided + date, or archived). The English body stays exactly
+  as written and remains the evidence — this is a HEAD, not a translation,
+  and it never edits, re-dates or refreshes the facts below it. Why: an
+  analysis in a language I read slowly does not get read, and an unread
+  decision doc is not a slow decision, it is no decision. The failure mode
+  is placement, not willpower.
 - My knowledge base is <tool, e.g. a Logseq vault> at:
   `<absolute path to vault/notes>`
   - <where daily notes live + their naming scheme + what they capture, e.g.
