@@ -63,3 +63,32 @@ here; before this, agent-kit work was tracked only in PRs.
       — per-repo install, small setup task. Decide which repos actually
       want it rather than installing everywhere by reflex.
       From inbox capture 2026-08-05, routed at the 2026-08-09 triage.
+- [ ] Cross-session messaging — put the new Claude Code feature against
+      the parallel-session pain already logged here. Shipped by Anthropic
+      in **v2.1.224 on 2026-08-07** (facts as-of 2026-08-10, not
+      refreshed): two tools, **`ListAgents`** to discover reachable
+      sessions and **`SendMessage`** to deliver text to one by name. It
+      passes a **summary**, not conversation history and not files.
+      macOS and Linux including WSL 2; **not native Windows**.
+      WHY IT LANDS HERE: three items in this file and one capture are the
+      same problem shape — sessions running in parallel that cannot see
+      each other. The token-management item above collects four overruns,
+      two of them from work split across sessions that had to be
+      re-explained; the 2026-07-13 capture "Claude need side screens" was
+      about running parallel sessions at all. A summary handoff is
+      cheaper than a re-explanation, and cheaper than the operator being
+      the message bus.
+      WHAT TO SETTLE, not build: (a) which pairs of sessions actually
+      want a channel (chief ↔ owner-repo session is the obvious one, and
+      it is exactly the handoff `workflows.md` calls the delegation
+      brief); (b) whether a received message should be trusted as an
+      instruction or read as data — a session that acts on whatever
+      another session sends it is a prompt-injection surface, and the
+      2026-07-21 capture on that question is already answered in the
+      vault; (c) whether anything belongs in a snippet at all, since the
+      harness invokes both tools on its own without the operator asking.
+      Verified live in the chief session that routed this line — both
+      tools were present and callable, so this is usable today, not a
+      changelog entry to wait on.
+      From inbox capture 2026-08-10 11:06 ("a社更新：多session通信"),
+      researched and routed at the 2026-08-10 triage.
