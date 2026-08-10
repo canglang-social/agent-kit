@@ -1,7 +1,7 @@
 ---
 name: about-me-example
 description: Template for the user profile fragment in ~/.claude/CLAUDE.md — identity, language preference, knowledge-base conventions. Skills reference the profile instead of embedding personal data.
-version: 0.4.0
+version: 0.4.1
 tags: [profile, claude-md-fragment, template]
 last-tested: 2026-07-10
 ---
@@ -71,8 +71,14 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   one costs the idea. Check first that it isn't already live in my files: a
   duplicate object competing with one that already has an owner and a date
   is worse than no capture. Name a fallback for when the notes tool can't
-  be written to — e.g. park the line in the current repo's TODO.md and say
-  so">.
+  be written to — and make sure the fallback still LANDS somewhere your
+  triage step sweeps. The one that works: emit the line PASTE-READY,
+  worded exactly as it belongs in the daily note, and ask me to paste it —
+  the notification you already owe me becomes the payload, so the capture
+  closes at capture time instead of leaving an obligation for later.
+  Parking it in the current repo's TODO.md is the fallback to the
+  fallback, and it is the one path with no router, since a repo TODO.md
+  is not a surface your triage sweeps">.
 - Session close-out (all projects): when a task wraps up in a session, before
   the final summary run a close-out audit of the session's work and chat
   history and report three short lists: (1) decisions resting on unstated
