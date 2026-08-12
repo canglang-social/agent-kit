@@ -79,6 +79,25 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   Parking it in the current repo's TODO.md is the fallback to the
   fallback, and it is the one path with no router, since a repo TODO.md
   is not a surface your triage sweeps">.
+  TAG AGENT-WRITTEN CAPTURES DIFFERENTLY — learned the hard way, worth
+  copying: the moment you let agents write into your capture queue, that
+  queue has two authors, and every rule you wrote for it assumed one.
+  Give machine captures their own tag (`#inbox/agent-gen` works if your
+  tool treats it as a child of `#inbox`, so existing sweeps still match
+  it). Then make the tag change BEHAVIOUR, not just display: a
+  machine-written line is not protected by a "never reword my captures"
+  rule, since there is no voice of yours to protect; it must never take
+  a first-person type (a "my own thinking" or "quote I collected" tag
+  that files automatically into your writing material); and your triage
+  should report the two counts separately, with any "you are behind"
+  threshold reading only the human one. Otherwise the backlog number is
+  measuring your assistant. Watch for the failure that makes this
+  urgent: agents write in their own register, so a "ONE line, in my
+  words" instruction quietly becomes a multi-line brief with OWNER and
+  DONE-WHEN fields. If it needs those fields it is a brief, not a
+  capture — route it to the owning repo instead. Prefer the paste-ready
+  path even when the notes tool IS writable: a line you place is a line
+  you have read, and placement is what makes the capture yours.
 - Session close-out (all projects): when a task wraps up in a session, before
   the final summary run a close-out audit of the session's work and chat
   history and report three short lists: (1) decisions resting on unstated
