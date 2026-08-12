@@ -1,7 +1,7 @@
 ---
 name: about-me-example
 description: Template for the user profile fragment in ~/.claude/CLAUDE.md — identity, language preference, knowledge-base conventions. Skills reference the profile instead of embedding personal data.
-version: 0.4.1
+version: 0.5.0
 tags: [profile, claude-md-fragment, template]
 last-tested: 2026-07-10
 ---
@@ -111,3 +111,28 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   most likely made; (3) the mistakes or skips I most likely made (fast
   approvals, dangling items with no owner or date). Honest and short, not a
   ceremony; fixes only on my word.
+  GIVE THAT AUDIT A DESTINATION — learned the hard way, worth copying:
+  lists (2) and (3) ARE material about how AI works and how you work with
+  AI, and the rule above disposes of the FIXES and of the OBSERVATIONS not
+  at all, so they die with the scrollback. Measure before you believe you
+  have this covered: my writing shelf held ONE AI-tagged seed out of 32
+  live, while 21 AI-tagged captures sat on my inbox surfaces — all typed
+  as "study this" or "build this", and all about somebody ELSE's AI
+  rather than my own practice. The fix is a tail on a step that already
+  runs, not a new system. After the three lists, if one of them holds
+  something that would still be true in a DIFFERENT session, offer
+  exactly ONE line, worded as I would word it, ready to paste into my
+  capture queue.
+  Four things make it work, and each was a lesson: ONE, not three — it
+  competes with the final summary for the last attention in a session.
+  SILENCE IS THE DEFAULT and costs nothing; most sessions yield nothing.
+  NEVER write it yourself — if machine captures carry their own tag (see
+  the rule above) and that tag is barred from first-person types, then an
+  agent that writes the line puts it exactly where it can never reach the
+  writing shelf you built it for; my paste action is what makes the line
+  mine, and mine is what makes the first-person type legal. And keep the
+  BAR hard, or you rebuild the noise: not a session log ("we fixed X
+  today" — ask whether it means anything to someone who was not there),
+  not a rule proposal (that is a brief, and briefs go to a repo's TODO in
+  a fielded format), not praise or blame. Pair it with an on-demand
+  command for the same job when I ask mid-session.
