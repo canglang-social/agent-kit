@@ -95,9 +95,15 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   urgent: agents write in their own register, so a "ONE line, in my
   words" instruction quietly becomes a multi-line brief with OWNER and
   DONE-WHEN fields. If it needs those fields it is a brief, not a
-  capture — route it to the owning repo instead. Prefer the paste-ready
-  path even when the notes tool IS writable: a line you place is a line
-  you have read, and placement is what makes the capture yours.
+  capture — route it to the owning repo instead. The test for whose
+  capture a line is, which settles every edge case with one question
+  instead of a rule per case: it is YOURS when either your THINKING or
+  your PLACING ACTION produced it. Machine-written text you pasted
+  yourself is yours; your own sentence that an agent reformatted is
+  yours. Only when an agent BOTH chose the words AND placed them is it
+  machine-authored. That is why the paste-ready path is worth preferring
+  even when the notes tool IS writable — it produces your captures by
+  construction.
 - Session close-out (all projects): when a task wraps up in a session, before
   the final summary run a close-out audit of the session's work and chat
   history and report three short lists: (1) decisions resting on unstated
