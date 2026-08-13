@@ -111,3 +111,16 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   most likely made; (3) the mistakes or skips I most likely made (fast
   approvals, dangling items with no owner or date). Honest and short, not a
   ceremony; fixes only on my word.
+  RECONCILE BEFORE REPORTING, if this session fanned out agents: compare
+  the POPULATION against the NOTIFICATIONS before writing any list. The
+  population is the countdown ("Waiting for N background agents") and the
+  session's tasks directory, which holds one `.output` file per agent; the
+  notifications are the messages that actually arrived carrying a result.
+  If population > notifications, an agent ran and nobody read it. This
+  cannot self-report — an absent message looks exactly like an agent that
+  had nothing to say, so silence is indistinguishable from "checked, found
+  nothing". Also: an agent's result flows to the agent that SPAWNED it, not
+  to the root, so anything below your own direct children arrives only if
+  its parent chooses to relay — and a parent that dies or summarizes drops
+  it silently. When delegating a fan-out, instruct the parent to list every
+  sub-agent it spawns and relay each one's findings verbatim.
