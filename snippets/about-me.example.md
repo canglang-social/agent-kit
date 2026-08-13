@@ -111,6 +111,27 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
   most likely made; (3) the mistakes or skips I most likely made (fast
   approvals, dangling items with no owner or date). Honest and short, not a
   ceremony; fixes only on my word.
+  RECONCILE BEFORE REPORTING, if the session fanned out agents — learned
+  the hard way, worth copying: compare the POPULATION against the
+  NOTIFICATIONS before writing any list. The population is the countdown
+  your tool shows ("waiting for N background agents") and the session's
+  tasks directory, which holds one output file per agent; the notifications
+  are the messages that actually arrived carrying a result. If population >
+  notifications, an agent ran and nobody read it — say so rather than
+  presenting the notifications as the population. A countdown that drops by
+  more than the number of agents NAMED in that interval is a silent
+  termination. This cannot self-report: an absent message looks exactly
+  like an agent that had nothing to say, so silence is indistinguishable
+  from "checked, found nothing" — there is no negative signal to trip on.
+  WHY IT HAPPENS: an agent's result flows to the agent that SPAWNED it, not
+  to the root, so anything below your own direct children arrives only if
+  its parent CHOOSES to relay it, and a parent that dies, hits a rate limit,
+  or summarizes instead of relaying drops it silently. So when the detail of
+  each lane matters, launch each lane yourself; when you delegate a fan-out
+  anyway, instruct the parent to list every sub-agent it spawns and relay
+  each one's findings verbatim. The cost of missing this is not a slower
+  answer — the report written on top of the silence can be confidently
+  WRONG, in the direction that stops you acting.
   GIVE THAT AUDIT A DESTINATION — learned the hard way, worth copying:
   lists (2) and (3) ARE material about how AI works and how you work with
   AI, and the rule above disposes of the FIXES and of the OBSERVATIONS not
