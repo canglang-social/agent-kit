@@ -33,12 +33,52 @@ Note: from a session inside this repo, use `/plugin marketplace add ./` — the
 trailing slash is required (bare `.` resolves against the parent directory and
 fails). `/reload-plugins` is needed to apply a fresh install.
 
-After editing assets locally:
+Installed plugins are cached separately from the marketplace source. Updating
+the marketplace alone does not replace the installed copy. After changing an
+installed asset:
+
+1. Bump the asset frontmatter `version` for a behavior change.
+2. Bump the enclosing plugin manifest once per release whenever that release
+   changes installed contents.
+3. Validate, refresh the marketplace listing, and update the installed cache:
 
 ```text
-/plugin marketplace update agent-kit
-/reload-plugins
+claude plugin validate --strict plugins/core
+claude plugin marketplace update agent-kit
+claude plugin update core@agent-kit
 ```
+
+Restart Claude Code after the update.
+
+Verify that the enabled user installation is byte-for-byte equal to the source:
+
+```sh
+(
+  set -eu
+  installed_record=$(
+    claude plugin list --json |
+      jq -cer '[.[] | select(.id == "core@agent-kit" and .scope == "user" and .enabled)] |
+        if length == 1 then .[0]
+        else error("expected exactly one enabled user install of core@agent-kit")
+        end'
+  )
+  source_version=$(jq -er '.version' plugins/core/.claude-plugin/plugin.json)
+  installed_version=$(printf '%s' "$installed_record" | jq -er '.version')
+  install_path=$(printf '%s' "$installed_record" | jq -er '.installPath')
+
+  if [ "$source_version" != "$installed_version" ]; then
+    printf 'Version mismatch: source=%s installed=%s\n' \
+      "$source_version" "$installed_version" >&2
+    exit 1
+  fi
+
+  diff -qr -x .DS_Store -x .in_use plugins/core "$install_path"
+)
+```
+
+No output means both Claude's installed-version registry and cached files match
+the source. Any error or listed path is release drift and must be resolved
+before treating an edit as deployed.
 
 ## Add a new asset
 
@@ -61,8 +101,9 @@ After editing assets locally:
 
 4. New plugin? Add `plugins/<name>/.claude-plugin/plugin.json` and register it
    in `.claude-plugin/marketplace.json`.
-5. Validate JSON (`python3 -m json.tool <file>.json`), bump `version` on any
-   behavior change, and commit.
+5. Validate the plugin (`claude plugin validate --strict plugins/<plugin>`),
+   bump the asset `version` on behavior changes, and also bump the enclosing
+   plugin manifest once per release when that release changes installed contents.
 
 ## Deployed prompts — the repo is upstream
 
