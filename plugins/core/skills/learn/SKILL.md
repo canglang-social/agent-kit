@@ -3,7 +3,7 @@ name: learn
 description: The full Socratic learn-flow for ANY topic (code, sources, general study) — resume/triage/calibrate → baited concept map → depth-first dialogue → active-recall checks → human-gated, auto-tagged Anki cards and session log captured to the Logseq journal. One step at a time, user drives. Also handles quick "just card this" requests via Phase 4 alone. Never writes production code.
 argument-hint: [topic or concept to learn — or "cards: <focus>" to just record flashcards]
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash(date:*)
-version: 0.5.1
+version: 0.5.2
 tags: [learning, teaching, spaced-repetition, logseq, anki]
 last-tested: 2026-07-03
 ---
@@ -155,10 +155,15 @@ never ask:
 - `#card` always (the card trigger), then a broad kebab-case topic tag
   (`#linear-algebra`), then a namespaced concept tag
   (`#linear-algebra/eigenvalues` — the Logseq→Anki sync turns `/` into `::`),
-  optionally a card-type tag: `#q/why`, `#q/how`, or `#q/apply`.
+  then exactly one required question-type tag: `#q/why`, `#q/how`, or
+  `#q/apply`. Choose the single tag that matches the card's question; never
+  omit it or attach more than one.
 - One idea per card; question front, minimal answer back; prefer why/how/apply
   over pure recall; phrase fronts to be memorable, not merely correct. Don't
   invent facts we didn't establish. All tags on the question line after #card.
+
+This requirement applies only to newly created cards. Never edit historical
+vault cards solely to add, replace, or normalize question-type tags.
 
 ```text
 - Why must a square matrix be singular to have a zero eigenvalue? #card #linear-algebra #linear-algebra/eigenvalues #q/why

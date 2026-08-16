@@ -80,6 +80,13 @@ No output means both Claude's installed-version registry and cached files match
 the source. Any error or listed path is release drift and must be resolved
 before treating an edit as deployed.
 
+## Learning-card contract
+
+New cards created by the `learn` skill carry `#card`, a broad topic tag, a
+namespaced concept tag, and exactly one question-type tag: `#q/why`, `#q/how`,
+or `#q/apply`. The skill does not retroactively alter historical vault cards to
+normalize those tags.
+
 ## Add a new asset
 
 1. Decide the destination:
