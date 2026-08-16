@@ -38,11 +38,14 @@ is public; see Do NOT below.)
 
 - Add marketplace locally: `/plugin marketplace add ./` (trailing slash required;
   bare `.` resolves wrong and fails)
-- Refresh after edits: `/plugin marketplace update agent-kit`
+- Refresh the marketplace listing after edits: `claude plugin marketplace update agent-kit`
+- After bumping the manifest, update the installed cache:
+  `claude plugin update core@agent-kit`, then restart Claude Code
 - Install a plugin: `/plugin install <plugin>@agent-kit`, then `/reload-plugins`
   to apply
-- Reload after changes: `/reload-plugins`
-- Validate JSON: `python3 -m json.tool <file>.json`
+- Verify source matches the installed cache with the parity command in README.
+- Validate the plugin and marketplace: `claude plugin validate --strict plugins/core`
+  and `claude plugin validate --strict .`
 
 ## Asset frontmatter (required on every asset)
 
@@ -65,7 +68,10 @@ is public; see Do NOT below.)
 - Skill file is exactly `SKILL.md` (case-sensitive).
 - Relative paths in manifests start with `./`.
 - Quote YAML glob patterns: `"**/*.ts"`.
-- SemVer for `version`; bump on any behavior change.
+- SemVer for each asset `version`; bump on any behavior change.
+- Also bump the enclosing plugin manifest once per release whenever that release
+  changes installed contents. Marketplace refresh and plugin update are separate
+  operations.
 
 ## Do
 
