@@ -4,7 +4,10 @@
 
 This repo is a **Claude Code plugin marketplace** holding my reusable agent
 assets (skills, subagents, MCP configs). It ships markdown/JSON config only —
-no application code. Assets install into other projects via `/plugin`. We standardize on **skills** for invocable assets (no legacy `commands/`);
+no application code. Assets install into other projects via `/plugin`. Approved
+provider-neutral canonical contracts may document behavior, but portable content
+is not runtime support: Claude `/plugin` remains the sole current distribution
+and runtime unless separately approved. We standardize on **skills** for invocable assets (no legacy `commands/`);
 raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
 
 ## Ecosystem position
@@ -30,6 +33,8 @@ is public; see Do NOT below.)
 - `plugins/<name>/.claude-plugin/plugin.json` — per-plugin manifest.
 - `plugins/<name>/skills/<skill>/SKILL.md` — skills (prompts live here too).
 - `plugins/<name>/agents/*.md` — subagents.
+- `plugins/<name>/capabilities/*.md` — provider-neutral canonical behavior
+  contracts loaded by an adapter; they do not themselves install or execute.
 - `plugins/<name>/.mcp.json` — MCP configs (plugin root, NOT in .claude-plugin/).
 - `prompts/` — raw chat prompts to copy-paste or share as text (not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library; not installed).

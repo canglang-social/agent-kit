@@ -17,6 +17,10 @@ selectively share some publicly.
   shared as text, not installed).
 - Per-asset metadata (version, tags, last-tested) in frontmatter.
 - Selective sharing: private by default, flip chosen plugins public.
+- Approved provider-neutral canonical behavior contracts may document an asset's
+  behavior beside its Claude loader. Portable content alone is not runtime
+  support: Claude `/plugin` remains the sole current distribution and runtime;
+  installation and execution elsewhere require separate approval.
 
 ## Non-Goals (frozen scope)
 
@@ -25,6 +29,8 @@ selectively share some publicly.
 - No automated CI / publishing pipeline in v1.
 - No multi-user governance, access control, or web UI.
 - Not a general document store — Claude Code / agent assets only.
+- No Codex or ChatGPT adapter, runtime parity, acceptance, promotion, or write
+  authority follows from a canonical contract.
 
 ## Users
 
