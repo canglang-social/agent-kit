@@ -35,6 +35,8 @@ is public; see Do NOT below.)
 - `plugins/<name>/agents/*.md` — subagents.
 - `plugins/<name>/capabilities/*.md` — provider-neutral canonical behavior
   contracts loaded by an adapter; they do not themselves install or execute.
+  Core Explain's source is `plugins/core/capabilities/explain.md`; its Claude
+  loader is `plugins/core/agents/explain.md`.
 - `plugins/<name>/.mcp.json` — MCP configs (plugin root, NOT in .claude-plugin/).
 - `prompts/` — raw chat prompts to copy-paste or share as text (not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library; not installed).

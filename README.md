@@ -16,6 +16,8 @@ scope and `CLAUDE.md` for conventions.
   - `agents/*.md` — subagents.
   - `capabilities/*.md` — provider-neutral behavior contracts consumed by a
     runtime adapter; they are not adapters or runtime support by themselves.
+    Core Explain's canonical source is `plugins/core/capabilities/explain.md`;
+    its sole current runtime loader is `plugins/core/agents/explain.md`.
   - `.mcp.json` — MCP server configs (at plugin root).
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).

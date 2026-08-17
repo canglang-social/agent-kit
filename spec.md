@@ -21,6 +21,9 @@ selectively share some publicly.
   behavior beside its Claude loader. Portable content alone is not runtime
   support: Claude `/plugin` remains the sole current distribution and runtime;
   installation and execution elsewhere require separate approval.
+- A canonical contract is the behavior source for its loader; Core Explain is
+  defined in `plugins/core/capabilities/explain.md` and loaded only by
+  `plugins/core/agents/explain.md`.
 
 ## Non-Goals (frozen scope)
 
