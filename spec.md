@@ -17,6 +17,18 @@ selectively share some publicly.
   shared as text, not installed).
 - Per-asset metadata (version, tags, last-tested) in frontmatter.
 - Selective sharing: private by default, flip chosen plugins public.
+- Approved provider-neutral canonical behavior contracts may document an asset's
+  behavior beside its Claude loader. Portable content alone is not runtime
+  support: Claude `/plugin` remains the sole current distribution and runtime;
+  installation and execution elsewhere require separate approval.
+- A canonical contract is the provider-neutral behavior and version-lineage
+  authority for its loader; Core Explain is defined in
+  `plugins/core/capabilities/explain.md`. It contains no provider-specific
+  command, selects no runtime, and authorizes no distribution. Its sole current
+  Claude loader is `plugins/core/agents/explain.md`. The loader owns Claude
+  trigger/discovery metadata, mirrored version metadata, model/tools,
+  fail-closed loading, supplied-context mapping, and `/learn` syntax. For
+  Explain only, supplied-context mapping never discovers a profile or vault.
 
 ## Non-Goals (frozen scope)
 
@@ -25,6 +37,8 @@ selectively share some publicly.
 - No automated CI / publishing pipeline in v1.
 - No multi-user governance, access control, or web UI.
 - Not a general document store — Claude Code / agent assets only.
+- No Codex or ChatGPT adapter, runtime parity, acceptance, promotion, or write
+  authority follows from a canonical contract.
 
 ## Users
 

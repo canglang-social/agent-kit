@@ -2,7 +2,10 @@
 
 Personal Claude Code plugin marketplace: reusable agent assets (skills,
 subagents, MCP configs), git-versioned, installable into any of my projects.
-See `spec.md` for scope and `CLAUDE.md` for conventions.
+Approved provider-neutral canonical contracts may document asset behavior, but
+portable content is not runtime support: Claude `/plugin` remains the sole
+current distribution and runtime unless separately approved. See `spec.md` for
+scope and `CLAUDE.md` for conventions.
 
 ## Layout
 
@@ -11,6 +14,15 @@ See `spec.md` for scope and `CLAUDE.md` for conventions.
   - `.claude-plugin/plugin.json` — plugin manifest (only this file lives here).
   - `skills/<skill>/SKILL.md` — invocable skills.
   - `agents/*.md` — subagents.
+  - `capabilities/*.md` — provider-neutral behavior contracts consumed by a
+    runtime adapter; they are not adapters or runtime support by themselves.
+    For Core Explain, `plugins/core/capabilities/explain.md` is the behavior
+    and version-lineage authority, while `plugins/core/agents/explain.md` is
+    its sole current Claude runtime loader. The canonical contract contains no
+    Claude command. The loader owns Claude trigger/discovery metadata, mirrored
+    version metadata, model/tools, fail-closed loading, supplied-context
+    mapping, and `/learn` syntax. For Explain only, it uses only
+    session-supplied context and never discovers a profile or vault.
   - `.mcp.json` — MCP server configs (at plugin root).
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
@@ -90,9 +102,13 @@ normalize those tags.
 ## Add a new asset
 
 1. Decide the destination:
-   - Invocable by the agent → a skill: `plugins/<plugin>/skills/<name>/SKILL.md`.
-   - Subagent → `plugins/<plugin>/agents/<name>.md`.
-   - Copy-paste chat prompt → `prompts/<name>.md`.
+    - Invocable by the agent → a skill: `plugins/<plugin>/skills/<name>/SKILL.md`.
+    - Subagent → `plugins/<plugin>/agents/<name>.md`.
+    - Provider-neutral behavior → a canonical capability:
+      `plugins/<plugin>/capabilities/<name>.md`; pair it with the approved
+      provider-specific adapter. The capability owns behavior, while the adapter
+      owns only provider syntax and loading.
+    - Copy-paste chat prompt → `prompts/<name>.md`.
 2. Use kebab-case names; skill file is exactly `SKILL.md`.
 3. Every asset carries required frontmatter:
 

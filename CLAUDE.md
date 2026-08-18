@@ -4,7 +4,10 @@
 
 This repo is a **Claude Code plugin marketplace** holding my reusable agent
 assets (skills, subagents, MCP configs). It ships markdown/JSON config only —
-no application code. Assets install into other projects via `/plugin`. We standardize on **skills** for invocable assets (no legacy `commands/`);
+no application code. Assets install into other projects via `/plugin`. Approved
+provider-neutral canonical contracts may document behavior, but portable content
+is not runtime support: Claude `/plugin` remains the sole current distribution
+and runtime unless separately approved. We standardize on **skills** for invocable assets (no legacy `commands/`);
 raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
 
 ## Ecosystem position
@@ -18,11 +21,10 @@ This repo is the tool layer of the owner's personal repo ecosystem
 - forge — WHAT I've built: project registry, reuse
   extraction, scaffolding; indexes this repo like any other project.
 
-Flow touching this repo: the `learn` skill is the deep-study stage of a
-two-step learning pipeline — forge's `/glossary` stages
-terms upstream as a quick capture queue; both write to the same journal
-at different depths. (No personal specifics here by design — this repo
-is public; see Do NOT below.)
+`/glossary` is retired; it is not a current pipeline stage. Explain provides
+quick, read-only explanations. Learn alone owns deliberate deeper practice and
+cards. (No personal specifics here by design — this repo is public; see Do NOT
+below.)
 
 ## Structure (map, not full tree)
 
@@ -30,6 +32,15 @@ is public; see Do NOT below.)
 - `plugins/<name>/.claude-plugin/plugin.json` — per-plugin manifest.
 - `plugins/<name>/skills/<skill>/SKILL.md` — skills (prompts live here too).
 - `plugins/<name>/agents/*.md` — subagents.
+- `plugins/<name>/capabilities/*.md` — provider-neutral canonical behavior
+  contracts loaded by an adapter; they do not themselves install or execute.
+  For Core Explain, `plugins/core/capabilities/explain.md` is the sole behavior
+  and version-lineage authority; `plugins/core/agents/explain.md` is the sole
+  current Claude runtime loader. The canonical contract does not select a
+  runtime or name Claude commands. The loader owns Claude trigger/discovery
+  metadata, mirrored version metadata, model/tools, fail-closed loading,
+  supplied-context mapping, and `/learn` syntax. For Explain only, that mapping
+  uses only session-supplied context and never discovers a profile or vault.
 - `plugins/<name>/.mcp.json` — MCP configs (plugin root, NOT in .claude-plugin/).
 - `prompts/` — raw chat prompts to copy-paste or share as text (not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library; not installed).
