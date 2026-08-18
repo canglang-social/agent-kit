@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain"
+  short_description: "Give one focused read-only explanation"
+  default_prompt: "Use $core:explain to explain this concept in one focused, read-only response."

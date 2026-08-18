@@ -1,0 +1,36 @@
+{
+  "name": "core",
+  "version": "0.7.0",
+  "description": "Core reusable learning and prompt-engineering skills for Claude Code and Codex",
+  "author": {
+    "name": "Canglangzhuoxi",
+    "email": "canglangzhuoxi@gmail.com",
+    "url": "https://github.com/canglang-social"
+  },
+  "homepage": "https://github.com/canglang-social/agent-kit",
+  "repository": "https://github.com/canglang-social/agent-kit",
+  "keywords": [
+    "learning",
+    "prompt-engineering",
+    "agent-assets"
+  ],
+  "skills": "./codex/skills/",
+  "interface": {
+    "displayName": "Agent Kit Core",
+    "shortDescription": "Learning and prompt-engineering skills",
+    "longDescription": "Reusable Learn and Prompt Engineer skills plus a one-shot read-only Explain adapter for Codex.",
+    "developerName": "Canglangzhuoxi",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/canglang-social/agent-kit",
+    "defaultPrompt": [
+      "Teach me this topic with $core:learn",
+      "Improve this prompt with $core:prompt-engineer",
+      "Explain this concept with $core:explain"
+    ]
+  }
+}

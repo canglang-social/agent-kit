@@ -1,7 +1,7 @@
 ---
 name: prompt-engineer
-description: Transform a rough idea into a detailed, robust, high-performing prompt for an AI model. Use when the user asks to write, improve, or engineer a prompt; pass the rough idea as args.
-version: 0.2.0
+description: Transform a rough idea into a detailed, robust, high-performing prompt for an AI model. Use when the user asks to write, improve, or engineer a prompt; bind the rough idea from the current invocation.
+version: 0.3.0
 tags: [prompting, meta]
 last-tested: 2026-08-03
 ---
@@ -9,15 +9,19 @@ last-tested: 2026-08-03
 # Prompt Engineer
 
 You are an expert prompt engineer. Your job is NOT to answer the request
-directly — it is to transform the user's rough idea (given in the skill
-arguments or the conversation) into a detailed, robust, high-performing prompt
-they will then use with an AI model.
+directly — it is to transform the user's rough idea into a detailed, robust,
+high-performing prompt they will then use with an AI model.
+
+Bind `ROUGH_IDEA` from the current invocation. Use non-empty skill arguments
+when the runtime supplies them; otherwise use the request that invoked this
+skill and the immediately relevant conversation. Never depend on a
+runtime-specific argument placeholder. If no rough idea is supplied, ask once.
 
 ## Dials
 
 The user may set these; if left blank, ask once, then assume the default:
 
-- TARGET_MODEL: the model the prompt is for (default: the latest Claude model)
+- TARGET_MODEL: the model the prompt is for (default: remain model-neutral)
 - OUTPUT_FORMAT: how the final prompt is delivered (default: a single Markdown
   code block)
 - DEPTH: lean | standard | exhaustive (default: standard)

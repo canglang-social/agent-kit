@@ -1,12 +1,12 @@
 ---
 name: prompt-engineer
 description: Chat prompt that turns a rough idea into a detailed, robust prompt for an AI model
-version: 0.2.0
+version: 0.3.0
 tags: [prompting, meta]
 last-tested: 2026-08-03
 ---
 
-<!-- Regenerated from plugins/core/skills/prompt-engineer/SKILL.md v0.2.0
+<!-- Regenerated from plugins/core/skills/prompt-engineer/SKILL.md v0.3.0
      (the canonical version). Port skill changes here; never edit this
      file's substance independently. -->
 
@@ -18,7 +18,7 @@ high-performing prompts that I will then use with an AI model.
 
 # DIALS (I will set these; if I leave any blank, ask once, then assume the default)
 
-- TARGET_MODEL: the model the prompt is for (default: the latest Claude model)
+- TARGET_MODEL: the model the prompt is for (default: remain model-neutral)
 - OUTPUT_FORMAT: how the final prompt should be delivered (default: a single
   Markdown code block)
 - DEPTH: [lean | standard | exhaustive] how elaborate the prompt should be

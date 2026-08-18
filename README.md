@@ -1,29 +1,31 @@
 # agent-kit
 
-Personal Claude Code plugin marketplace: reusable agent assets (skills,
-subagents, MCP configs), git-versioned, installable into any of my projects.
-Approved provider-neutral canonical contracts may document asset behavior, but
-portable content is not runtime support: Claude `/plugin` remains the sole
-current distribution and runtime unless separately approved. See `spec.md` for
+Personal Claude Code and Codex plugin marketplace: reusable agent assets,
+git-versioned and installable into any project. Portable Markdown is runtime
+support only where a real manifest and adapter expose it. See `spec.md` for
 scope and `CLAUDE.md` for conventions.
 
 ## Layout
 
 - `.claude-plugin/marketplace.json` — marketplace manifest.
+- `.agents/plugins/marketplace.json` — Codex repo/team marketplace manifest.
 - `plugins/<name>/` — one directory per plugin.
   - `.claude-plugin/plugin.json` — plugin manifest (only this file lives here).
-  - `skills/<skill>/SKILL.md` — invocable skills.
+  - `.codex-plugin/plugin.json` — Codex plugin manifest.
+  - `skills/<skill>/SKILL.md` — shared invocable skills.
+  - `codex/skills/<skill>/SKILL.md` — Codex-only skill adapters.
   - `agents/*.md` — subagents.
   - `capabilities/*.md` — provider-neutral behavior contracts consumed by a
     runtime adapter; they are not adapters or runtime support by themselves.
     For Core Explain, `plugins/core/capabilities/explain.md` is the behavior
-    and version-lineage authority, while `plugins/core/agents/explain.md` is
-    its sole current Claude runtime loader. The canonical contract contains no
-    Claude command. The loader owns Claude trigger/discovery metadata, mirrored
-    version metadata, model/tools, fail-closed loading, supplied-context
-    mapping, and `/learn` syntax. For Explain only, it uses only
-    session-supplied context and never discovers a profile or vault.
-  - `.mcp.json` — MCP server configs (at plugin root).
+    and version-lineage authority. Claude loads it through
+    `plugins/core/agents/explain.md`; Codex loads it through
+    `plugins/core/codex/skills/explain/SKILL.md`. Both fail closed. For Explain
+    only, supplied context never discovers a profile or vault.
+    Thin Codex adapter frontmatter intentionally contains only `name` and
+    `description`; the referenced shared body/capability and Core manifests are
+    the behavior and installed-package version authorities.
+  - `.mcp.json` — MCP server configs when present. Core currently has no MCP.
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
   `about-me.md` holds the user profile — it is gitignored (personal data
@@ -35,6 +37,8 @@ scope and `CLAUDE.md` for conventions.
 
 ## Install into a project
 
+### Claude Code
+
 ```text
 /plugin marketplace add <path-or-git-url-of-this-repo>
 /plugin install core@agent-kit
@@ -45,13 +49,26 @@ Note: from a session inside this repo, use `/plugin marketplace add ./` — the
 trailing slash is required (bare `.` resolves against the parent directory and
 fails). `/reload-plugins` is needed to apply a fresh install.
 
+### Codex
+
+From a shell:
+
+```sh
+codex plugin marketplace add <path-or-git-url-of-this-repo>
+codex plugin add core@agent-kit
+```
+
+The repo/team marketplace must be added explicitly. Start a new Codex task in
+the target workspace after install so skill discovery starts cleanly.
+
 Installed plugins are cached separately from the marketplace source. Updating
 the marketplace alone does not replace the installed copy. After changing an
 installed asset:
 
-1. Bump the asset frontmatter `version` for a behavior change.
-2. Bump the enclosing plugin manifest once per release whenever that release
-   changes installed contents.
+1. Bump the canonical behavior asset frontmatter `version` for a behavior
+   change; thin Codex adapters do not duplicate it.
+2. Bump both enclosing Core manifests in lockstep once per release whenever
+   that release changes installed contents.
 3. Validate, refresh the marketplace listing, and update the installed cache:
 
 ```text
@@ -92,6 +109,46 @@ No output means both Claude's installed-version registry and cached files match
 the source. Any error or listed path is release drift and must be resolved
 before treating an edit as deployed.
 
+## Complete catalog and invocation
+
+Installed Core contains exactly two shared skill bodies plus Explain:
+
+| Feature | Claude Code | Codex | Boundary |
+| --- | --- | --- | --- |
+| Learn | `/learn <topic>` or `/learn cards: <focus>` | `Use $core:learn to study <topic>` or `Use $core:learn with cards: <focus>` | Teaching only; production code is never edited. Vault access requires one exact owner-supplied path, human gates, and append-only writes. |
+| Prompt Engineer | `/prompt-engineer <rough idea>` | `Use $core:prompt-engineer to improve <rough idea>` | Produces a prompt, not the underlying result; model-neutral by default. |
+| Explain | `Use the core:explain agent to explain <concept>` | `Use $core:explain to explain <concept>` | One response, one transferable idea, read-only; adapters fail closed if the canonical contract is unavailable. |
+
+The six files under `prompts/` are intentional file assets, not installed
+skills. From a clean clone, use the exact pattern
+`ask Codex to read <path> and follow it` with one of:
+
+- `prompts/about-me.md`
+- `prompts/hard-question.md`
+- `prompts/life-talk.md`
+- `prompts/prompt-engineer.md`
+- `prompts/skincare-consultant.md`
+- `prompts/workout-coach.md`
+
+The three files under `snippets/` are also intentional file assets:
+
+- `snippets/about-me.example.md` — public profile template; copy to the
+  gitignored `snippets/about-me.md` and supply that private file explicitly.
+  Explain never discovers it.
+- `snippets/deployment-loaders.md` — Claude/Cowork loader guidance; it does not
+  activate a Codex plugin.
+- `snippets/prompt-preamble.md` — prompt-authoring fragment.
+
+For any tracked snippet, `ask Codex to read <path> and follow it`. If a product
+cannot read the clone, attach or paste the one selected prompt/snippet; no
+automatic parity is claimed for file-inaccessible products.
+
+`.codex/hooks.json` is a non-mutating `PostToolUse` contributor reminder: it
+never edits, refreshes, reinstalls, or cachebusts. `.claude/settings.json`
+retains the existing Claude marketplace-source refresh hook, which does not
+update installed caches. MCP: none — Core has no `.mcp.json`, `mcpServers`
+entry, or external-account dependency.
+
 ## Learning-card contract
 
 New cards created by the `learn` skill carry `#card`, a broad topic tag, a
@@ -110,7 +167,7 @@ normalize those tags.
       owns only provider syntax and loading.
     - Copy-paste chat prompt → `prompts/<name>.md`.
 2. Use kebab-case names; skill file is exactly `SKILL.md`.
-3. Every asset carries required frontmatter:
+3. Every canonical versioned asset carries required frontmatter:
 
    ```yaml
    ---
@@ -122,11 +179,15 @@ normalize those tags.
    ---
    ```
 
-4. New plugin? Add `plugins/<name>/.claude-plugin/plugin.json` and register it
-   in `.claude-plugin/marketplace.json`.
+   Thin Codex adapter `SKILL.md` files are the intentional exception: their
+   frontmatter contains only `name` and `description`, and they fail-closed
+   load the versioned canonical body/capability.
+
+4. New dual-runtime plugin? Add both runtime manifests and register it in both
+   marketplace files.
 5. Validate the plugin (`claude plugin validate --strict plugins/<plugin>`),
-   bump the asset `version` on behavior changes, and also bump the enclosing
-   plugin manifest once per release when that release changes installed contents.
+   bump the canonical asset `version` on behavior changes, and also bump the
+   enclosing Core manifests in lockstep when that release changes installed contents.
 
 ## Deployed prompts — the repo is upstream
 
