@@ -16,17 +16,17 @@ scope and `CLAUDE.md` for conventions.
   - `agents/*.md` — subagents.
   - `capabilities/*.md` — provider-neutral behavior contracts consumed by a
     runtime adapter; they are not adapters or runtime support by themselves.
-    Core Explain's canonical source is `plugins/core/capabilities/explain.md`;
-    its sole current runtime loader is `plugins/core/agents/explain.md`.
+    For Core Explain, `plugins/core/capabilities/explain.md` is the behavior
+    authority, while `plugins/core/agents/explain.md` is its sole current
+    Claude runtime loader. The canonical contract contains no Claude command;
+    the loader alone maps generic handoffs to `/learn`.
   - `.mcp.json` — MCP server configs (at plugin root).
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
-  `about-me.md` holds the user profile — it is gitignored (personal data
-  never publishes); copy `about-me.example.md`, fill it in, and @import it
-  from `~/.claude/CLAUDE.md` (one line:
-  `@/path/to/agent-kit/snippets/about-me.md` — live at every session, no
-  re-sync). Skills reference the profile (language, knowledge-base location)
-  instead of embedding it.
+  Personal data never publishes. Assets may use only background and language
+  preference already supplied in the current session; they never discover a
+  profile, private path, vault, home directory, machine, or other private
+  context.
 
 ## Install into a project
 
@@ -97,9 +97,13 @@ normalize those tags.
 ## Add a new asset
 
 1. Decide the destination:
-   - Invocable by the agent → a skill: `plugins/<plugin>/skills/<name>/SKILL.md`.
-   - Subagent → `plugins/<plugin>/agents/<name>.md`.
-   - Copy-paste chat prompt → `prompts/<name>.md`.
+    - Invocable by the agent → a skill: `plugins/<plugin>/skills/<name>/SKILL.md`.
+    - Subagent → `plugins/<plugin>/agents/<name>.md`.
+    - Provider-neutral behavior → a canonical capability:
+      `plugins/<plugin>/capabilities/<name>.md`; pair it with the approved
+      provider-specific adapter. The capability owns behavior, while the adapter
+      owns only provider syntax and loading.
+    - Copy-paste chat prompt → `prompts/<name>.md`.
 2. Use kebab-case names; skill file is exactly `SKILL.md`.
 3. Every asset carries required frontmatter:
 

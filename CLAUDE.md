@@ -21,11 +21,10 @@ This repo is the tool layer of the owner's personal repo ecosystem
 - forge — WHAT I've built: project registry, reuse
   extraction, scaffolding; indexes this repo like any other project.
 
-Flow touching this repo: the `learn` skill is the deep-study stage of a
-two-step learning pipeline — forge's `/glossary` stages
-terms upstream as a quick capture queue; both write to the same journal
-at different depths. (No personal specifics here by design — this repo
-is public; see Do NOT below.)
+`/glossary` is retired; it is not a current pipeline stage. Explain provides
+quick, read-only explanations. Learn alone owns deliberate deeper practice and
+cards. (No personal specifics here by design — this repo is public; see Do NOT
+below.)
 
 ## Structure (map, not full tree)
 
@@ -35,8 +34,10 @@ is public; see Do NOT below.)
 - `plugins/<name>/agents/*.md` — subagents.
 - `plugins/<name>/capabilities/*.md` — provider-neutral canonical behavior
   contracts loaded by an adapter; they do not themselves install or execute.
-  Core Explain's source is `plugins/core/capabilities/explain.md`; its Claude
-  loader is `plugins/core/agents/explain.md`.
+  For Core Explain, `plugins/core/capabilities/explain.md` is the sole behavior
+  authority; `plugins/core/agents/explain.md` is the sole current Claude
+  runtime loader. The canonical contract does not select a runtime or name
+  Claude commands; the loader only maps its generic handoffs to `/learn`.
 - `plugins/<name>/.mcp.json` — MCP configs (plugin root, NOT in .claude-plugin/).
 - `prompts/` — raw chat prompts to copy-paste or share as text (not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library; not installed).
@@ -96,9 +97,9 @@ is public; see Do NOT below.)
 - Do NOT invent manifest fields; `plugin.json` is strict-validated.
 - Do NOT put personal data (names, emails, machine paths, vault locations) in
   tracked files — this repo is public and every asset must work verbatim for a
-  stranger. Assets say "read the user profile" instead of embedding specifics;
-  personal values live only in `~/.claude/CLAUDE.md` and the gitignored
-  `snippets/about-me.md` (template: `snippets/about-me.example.md`).
+  stranger. Assets may use only background and language preference already
+  supplied in the current session; they must never discover or read a profile,
+  path, vault, home directory, machine, or other private context.
 
 ## Gotchas
 
