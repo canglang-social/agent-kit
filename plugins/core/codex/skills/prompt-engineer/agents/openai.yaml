@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Engineer"
+  short_description: "Turn a rough idea into a robust prompt"
+  default_prompt: "Use $core:prompt-engineer to improve this rough prompt idea."

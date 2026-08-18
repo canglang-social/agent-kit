@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "payload=$(jq -r '[.tool_input?, .tool_input.file_path?, .tool_input.patch?, .tool_input.input?] | map(select(type == \"string\")) | join(\"\\n\")'); case \"$payload\" in *plugins/core/*|*prompts/*|*snippets/*) printf '%s\\n' '{\"systemMessage\":\"Agent Kit contributor reminder: if installed behavior changed, bump the asset version and both Core manifests in lockstep, run the repository checks, then tell the owner which runtime cache may need an explicit update. This hook never edits, reinstalls, or refreshes anything.\"}';; esac"
+          }
+        ]
+      }
+    ]
+  }
+}

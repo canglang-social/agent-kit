@@ -1,7 +1,7 @@
 ---
 name: about-me-example
 description: Template for the user profile fragment in ~/.claude/CLAUDE.md — identity, language preference, knowledge-base conventions. Skills reference the profile instead of embedding personal data.
-version: 0.5.0
+version: 0.5.1
 tags: [profile, claude-md-fragment, template]
 last-tested: 2026-07-10
 ---
@@ -50,8 +50,9 @@ and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
     logs and flashcards">
   - <where topic pages live + how they're named + any reuse rule, e.g. "pages/
     — topic pages; reuse existing pages before inventing new ones">
-- Learning skills (learn, explain) read this profile for language and vault
-  location instead of hardcoding them.
+- Learn may use owner-supplied profile and vault data under its contract.
+  Explain uses only session-supplied background and language, and does not
+  discover a profile or vault.
 - Scheduling split (optional): <who assigns dates and times to work, e.g.
   "the AI never assigns a day or clock time to work, anywhere. When a dated
   commitment surfaces, my calendar gets ONLY the deadline pair — a lead-time

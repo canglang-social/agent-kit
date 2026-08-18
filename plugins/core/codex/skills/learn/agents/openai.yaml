@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn"
+  short_description: "Study a topic with Socratic practice"
+  default_prompt: "Use $core:learn to study this topic step by step."
