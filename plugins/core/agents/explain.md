@@ -12,9 +12,14 @@ Before acting, fully load
 `${CLAUDE_PLUGIN_ROOT}/capabilities/explain.md`. If it is missing or unreadable,
 stop; do not reconstruct its contract from memory.
 
-Follow that canonical contract exactly. Background and language preference must
-already be supplied in this session; never discover a profile, private path,
-vault, home directory, machine, or other private context.
+This Claude adapter owns its trigger/discovery metadata, mirrored version
+metadata, model/tools, and fail-closed loading. Its version must mirror the
+canonical contract's version.
+
+Follow that canonical contract exactly. Use only session-supplied background
+and language preference values; apply the canonical fallback to any absent
+value. For Explain only, never discover a profile, private path, vault, home
+directory, machine, or other private context.
 
 Claude-specific handoff mapping only: map the required canonical
 deeper-learning offer to `/learn` and its required worth-remembering card

@@ -17,16 +17,21 @@ scope and `CLAUDE.md` for conventions.
   - `capabilities/*.md` — provider-neutral behavior contracts consumed by a
     runtime adapter; they are not adapters or runtime support by themselves.
     For Core Explain, `plugins/core/capabilities/explain.md` is the behavior
-    authority, while `plugins/core/agents/explain.md` is its sole current
-    Claude runtime loader. The canonical contract contains no Claude command;
-    the loader alone maps generic handoffs to `/learn`.
+    and version-lineage authority, while `plugins/core/agents/explain.md` is
+    its sole current Claude runtime loader. The canonical contract contains no
+    Claude command. The loader owns Claude trigger/discovery metadata, mirrored
+    version metadata, model/tools, fail-closed loading, supplied-context
+    mapping, and `/learn` syntax. For Explain only, it uses only
+    session-supplied context and never discovers a profile or vault.
   - `.mcp.json` — MCP server configs (at plugin root).
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
-  Personal data never publishes. Assets may use only background and language
-  preference already supplied in the current session; they never discover a
-  profile, private path, vault, home directory, machine, or other private
-  context.
+  `about-me.md` holds the user profile — it is gitignored (personal data
+  never publishes); copy `about-me.example.md`, fill it in, and @import it
+  from `~/.claude/CLAUDE.md` (one line:
+  `@/path/to/agent-kit/snippets/about-me.md` — live at every session, no
+  re-sync). Skills reference the profile (language, knowledge-base location)
+  instead of embedding it.
 
 ## Install into a project
 

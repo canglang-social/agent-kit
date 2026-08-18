@@ -35,9 +35,12 @@ below.)
 - `plugins/<name>/capabilities/*.md` — provider-neutral canonical behavior
   contracts loaded by an adapter; they do not themselves install or execute.
   For Core Explain, `plugins/core/capabilities/explain.md` is the sole behavior
-  authority; `plugins/core/agents/explain.md` is the sole current Claude
-  runtime loader. The canonical contract does not select a runtime or name
-  Claude commands; the loader only maps its generic handoffs to `/learn`.
+  and version-lineage authority; `plugins/core/agents/explain.md` is the sole
+  current Claude runtime loader. The canonical contract does not select a
+  runtime or name Claude commands. The loader owns Claude trigger/discovery
+  metadata, mirrored version metadata, model/tools, fail-closed loading,
+  supplied-context mapping, and `/learn` syntax. For Explain only, that mapping
+  uses only session-supplied context and never discovers a profile or vault.
 - `plugins/<name>/.mcp.json` — MCP configs (plugin root, NOT in .claude-plugin/).
 - `prompts/` — raw chat prompts to copy-paste or share as text (not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library; not installed).
@@ -97,9 +100,9 @@ below.)
 - Do NOT invent manifest fields; `plugin.json` is strict-validated.
 - Do NOT put personal data (names, emails, machine paths, vault locations) in
   tracked files — this repo is public and every asset must work verbatim for a
-  stranger. Assets may use only background and language preference already
-  supplied in the current session; they must never discover or read a profile,
-  path, vault, home directory, machine, or other private context.
+  stranger. Assets say "read the user profile" instead of embedding specifics;
+  personal values live only in `~/.claude/CLAUDE.md` and the gitignored
+  `snippets/about-me.md` (template: `snippets/about-me.example.md`).
 
 ## Gotchas
 
