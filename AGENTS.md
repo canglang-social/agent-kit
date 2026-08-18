@@ -1,8 +1,9 @@
 # Agent Kit contributor instructions
 
-Read `spec.md` before changing scope. This public repository ships Markdown
-and JSON agent assets only; do not add application code, private payloads,
-owner-specific machine paths, or vault contents.
+Read `spec.md` before changing scope. This public repository ships Markdown,
+JSON, and Codex YAML metadata; Python is allowed only for repository tests.
+Do not add application/runtime code, private payloads, owner-specific machine
+paths, or vault contents.
 
 ## Runtime map
 
@@ -15,6 +16,9 @@ owner-specific machine paths, or vault contents.
   Claude's adapter is `plugins/core/agents/explain.md`; Codex's adapter is
   `plugins/core/codex/skills/explain/SKILL.md`. Adapters load the canonical
   file and fail closed; they must not duplicate its procedure.
+- Thin Codex adapter `SKILL.md` frontmatter intentionally contains only
+  `name` and `description`. The referenced shared body or capability owns the
+  behavior version; both Core manifests own the installed package version.
 - `prompts/` and `snippets/` are explicit file assets. They are not installed
   or automatically activated by either plugin runtime.
 - There is no MCP server in this repository.
@@ -28,7 +32,8 @@ owner-specific machine paths, or vault contents.
   append-only, and production-code writes forbidden.
 - Claude's `allowed-tools` frontmatter is a Claude adapter. Codex sandbox and
   approval prompts are the Codex enforcement boundary.
-- Bump an asset SemVer for behavior changes. Keep
+- Bump the canonical behavior asset SemVer for behavior changes; thin Codex
+  adapter frontmatter carries no duplicate version. Keep
   `plugins/core/.claude-plugin/plugin.json` and
   `plugins/core/.codex-plugin/plugin.json` at the same Core version.
 - `.codex/hooks.json` is reminder-only. Never make it edit, reinstall,

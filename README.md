@@ -22,6 +22,9 @@ scope and `CLAUDE.md` for conventions.
     `plugins/core/agents/explain.md`; Codex loads it through
     `plugins/core/codex/skills/explain/SKILL.md`. Both fail closed. For Explain
     only, supplied context never discovers a profile or vault.
+    Thin Codex adapter frontmatter intentionally contains only `name` and
+    `description`; the referenced shared body/capability and Core manifests are
+    the behavior and installed-package version authorities.
   - `.mcp.json` — MCP server configs when present. Core currently has no MCP.
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
 - `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
@@ -62,7 +65,8 @@ Installed plugins are cached separately from the marketplace source. Updating
 the marketplace alone does not replace the installed copy. After changing an
 installed asset:
 
-1. Bump the asset frontmatter `version` for a behavior change.
+1. Bump the canonical behavior asset frontmatter `version` for a behavior
+   change; thin Codex adapters do not duplicate it.
 2. Bump both enclosing Core manifests in lockstep once per release whenever
    that release changes installed contents.
 3. Validate, refresh the marketplace listing, and update the installed cache:
@@ -163,7 +167,7 @@ normalize those tags.
       owns only provider syntax and loading.
     - Copy-paste chat prompt → `prompts/<name>.md`.
 2. Use kebab-case names; skill file is exactly `SKILL.md`.
-3. Every asset carries required frontmatter:
+3. Every canonical versioned asset carries required frontmatter:
 
    ```yaml
    ---
@@ -175,11 +179,15 @@ normalize those tags.
    ---
    ```
 
+   Thin Codex adapter `SKILL.md` files are the intentional exception: their
+   frontmatter contains only `name` and `description`, and they fail-closed
+   load the versioned canonical body/capability.
+
 4. New dual-runtime plugin? Add both runtime manifests and register it in both
    marketplace files.
 5. Validate the plugin (`claude plugin validate --strict plugins/<plugin>`),
-   bump the asset `version` on behavior changes, and also bump the enclosing
-   Core manifests in lockstep when that release changes installed contents.
+   bump the canonical asset `version` on behavior changes, and also bump the
+   enclosing Core manifests in lockstep when that release changes installed contents.
 
 ## Deployed prompts — the repo is upstream
 

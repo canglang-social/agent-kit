@@ -1,5 +1,6 @@
 import json
 import re
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -188,6 +189,7 @@ class CatalogPrivacyAndHookTests(unittest.TestCase):
         self.assertEqual(len(entries), 1)
         self.assertRegex(entries[0]["matcher"], r"apply_patch")
         command = entries[0]["hooks"][0]["command"]
+        self.assertIn(".tool_input.command?", command)
         self.assertIn("systemMessage", command)
         for forbidden in (
             "plugin update",
@@ -200,6 +202,66 @@ class CatalogPrivacyAndHookTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, command)
 
+    def test_codex_hook_executes_for_live_apply_patch_payload_only(self) -> None:
+        hook = load_json(".codex/hooks.json")
+        command = hook["hooks"]["PostToolUse"][0]["hooks"][0]["command"]
+        tracked_before = subprocess.check_output(
+            ["git", "status", "--porcelain=v1", "--untracked-files=no"],
+            cwd=ROOT,
+            text=True,
+        )
+
+        relevant = {
+            "hook_event_name": "PostToolUse",
+            "tool_name": "apply_patch",
+            "tool_input": {
+                "command": (
+                    "*** Begin Patch\n"
+                    "*** Update File: plugins/core/skills/learn/SKILL.md\n"
+                    "*** End Patch"
+                )
+            },
+        }
+        relevant_run = subprocess.run(
+            ["sh", "-c", command],
+            cwd=ROOT,
+            input=json.dumps(relevant),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        self.assertIn("systemMessage", relevant_run.stdout)
+        self.assertIn("never edits", relevant_run.stdout)
+
+        non_relevant = {
+            "hook_event_name": "PostToolUse",
+            "tool_name": "apply_patch",
+            "tool_input": {
+                "command": (
+                    "*** Begin Patch\n"
+                    "*** Update File: notes/unrelated.md\n"
+                    "*** End Patch"
+                )
+            },
+        }
+        non_relevant_run = subprocess.run(
+            ["sh", "-c", command],
+            cwd=ROOT,
+            input=json.dumps(non_relevant),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        self.assertEqual(non_relevant_run.stdout, "")
+        self.assertEqual(non_relevant_run.stderr, "")
+
+        tracked_after = subprocess.check_output(
+            ["git", "status", "--porcelain=v1", "--untracked-files=no"],
+            cwd=ROOT,
+            text=True,
+        )
+        self.assertEqual(tracked_after, tracked_before)
+
     def test_docs_do_not_claim_unsupported_runtime_parity(self) -> None:
         docs = "\n".join(read(path) for path in ("README.md", "AGENTS.md", "CLAUDE.md", "spec.md"))
         for unsupported_claim in (
@@ -210,6 +272,9 @@ class CatalogPrivacyAndHookTests(unittest.TestCase):
         ):
             self.assertNotIn(unsupported_claim, docs)
         self.assertIn("sandbox and approvals", " ".join(docs.split()))
+        self.assertIn("Python is allowed only for repository tests", docs)
+        self.assertNotIn("Every committed asset has required frontmatter", docs)
+        self.assertIn("name` + `description` exception", docs)
         self.assertFalse((CORE / ".mcp.json").exists())
 
 

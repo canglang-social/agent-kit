@@ -3,8 +3,9 @@
 ## Overview
 
 This repo is a **Claude Code and Codex plugin marketplace** holding my reusable agent
-assets (skills, subagents, MCP configs). It ships markdown/JSON config only —
-no application code. Assets install through each runtime's plugin commands.
+assets (skills, subagents, MCP configs). Runtime assets are Markdown, JSON, and
+Codex YAML metadata; Python is test-only. There is no application/runtime code.
+Assets install through each runtime's plugin commands.
 Provider-neutral Markdown is runtime support only when a real runtime manifest
 and adapter expose it. We standardize on **skills** for invocable assets (no legacy `commands/`);
 raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
@@ -14,9 +15,9 @@ raw copy-paste prompts live in `prompts/`. See `spec.md` for scope.
 This repo is the tool layer of the owner's personal repo ecosystem
 (full private map: forge/ECOSYSTEM.md) — one line each:
 
-- agent-kit (this repo) — Claude Code and Codex plugin marketplace: holds my
-  reusable agent assets (skills, subagents, chat prompts), consumed
-  everywhere via `/plugin install`, never file-copied into consumer repos.
+- agent-kit (this repo) — Claude installable components use `/plugin install`;
+  Codex skills use `codex plugin marketplace add` plus `codex plugin add`;
+  raw prompts/snippets remain explicit file assets and are not plugin-installed.
 - forge — WHAT I've built: project registry, reuse
   extraction, scaffolding; indexes this repo like any other project.
 
@@ -67,7 +68,11 @@ below.)
   `ask Codex to read <path> and follow it`; file-inaccessible products require
   attaching or pasting that one selected asset.
 
-## Asset frontmatter (required on every asset)
+## Asset frontmatter
+
+Canonical versioned assets use the full frontmatter below. Thin Codex adapter
+`SKILL.md` files intentionally use only `name` and `description`; their loaded
+shared body/capability and the Core manifests are the version authorities.
 
     ---
     name: kebab-case-name
@@ -88,7 +93,7 @@ below.)
 - Skill file is exactly `SKILL.md` (case-sensitive).
 - Relative paths in manifests start with `./`.
 - Quote YAML glob patterns: `"**/*.ts"`.
-- SemVer for each asset `version`; bump on any behavior change.
+- SemVer for each canonical versioned asset; bump on any behavior change.
 - Also bump the enclosing plugin manifest once per release whenever that release
   changes installed contents. Keep Claude and Codex Core manifest versions in
   lockstep. Marketplace refresh and plugin update are separate operations.
@@ -98,7 +103,8 @@ below.)
 - Read `spec.md` before adding scope.
 - Author prompts as skills; component dirs at plugin root; keep only
   `plugin.json` inside `.claude-plugin/` or `.codex-plugin/`.
-- Fill frontmatter metadata on every new asset.
+- Fill full frontmatter on canonical versioned assets; thin Codex adapters use
+  only `name` and `description`.
 - Decide per prompt: invocable by the agent → skill; copy-paste text → `prompts/`.
 
 ## Do NOT

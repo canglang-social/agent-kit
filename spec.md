@@ -15,7 +15,7 @@ selectively share some publicly.
 - Standardize on skills for invocable assets (no legacy commands).
 - Keep a plain `prompts/` library for copy-paste chat prompts (versioned,
   shared as text, not installed).
-- Per-asset metadata (version, tags, last-tested) in frontmatter.
+- Canonical versioned-asset metadata (version, tags, last-tested) in frontmatter.
 - Selective sharing: private by default, flip chosen plugins public.
 - Approved provider-neutral canonical behavior contracts may document an asset's
   behavior beside thin runtime loaders. Portable content alone is not runtime
@@ -27,6 +27,9 @@ selectively share some publicly.
   are `plugins/core/agents/explain.md` for Claude and
   `plugins/core/codex/skills/explain/SKILL.md` for Codex. Loaders own
   trigger/discovery metadata, fail-closed loading, and runtime handoff syntax.
+  Thin Codex adapter frontmatter intentionally contains only `name` and
+  `description`; the referenced shared body/capability owns behavior versioning,
+  and the Core manifests own installed-package versioning.
   For Explain only, supplied-context mapping never discovers a profile or vault.
 
 ## Non-Goals (frozen scope)
@@ -53,7 +56,8 @@ selectively share some publicly.
   then `/plugin install <plugin>` to pull assets in.
 - As a Codex user, I can add this repo with `codex plugin marketplace add`,
   install Core with `codex plugin add core@agent-kit`, and invoke its skills.
-- Each asset carries frontmatter metadata (version, purpose, tags, last-tested).
+- Each canonical versioned asset carries frontmatter metadata; thin Codex
+  adapters carry only `name` and `description`.
 - I can mark a plugin shareable without exposing the whole repo.
 - As owner, I can save a raw chat prompt as a markdown file in `prompts/` and
   share it as plain text, without turning it into a skill.
@@ -67,7 +71,8 @@ selectively share some publicly.
 - At least one plugin installs cleanly; its skills/agents are invocable.
 - README catalogs two shared skills, Explain, six prompts, three snippets, hook
   behavior, and the explicit absence of MCP.
-- Every committed asset has required frontmatter.
+- Every canonical versioned asset has full required frontmatter; thin Codex
+  adapters have the intentional `name` + `description` exception.
 - README documents how to add an asset and how to install.
 
 ## Constraints
@@ -75,7 +80,8 @@ selectively share some publicly.
 - Follow current Claude Code and Codex plugin/marketplace schemas.
 - Kebab-case names; `SKILL.md` exact casing; component dirs at plugin root
   (not under `.claude-plugin/`).
-- Markdown + JSON only; no build step.
+- Runtime assets remain Markdown, JSON, and Codex YAML metadata. Python is
+  permitted only under `tests/`; no application/runtime code or build step.
 
 ## Open Questions
 
