@@ -159,12 +159,33 @@ class SkillContractTests(unittest.TestCase):
 
 class CatalogPrivacyAndHookTests(unittest.TestCase):
     def test_file_asset_catalog_is_complete(self) -> None:
-        prompts = sorted(path.name for path in (ROOT / "prompts").glob("*.md"))
-        snippets = sorted(path.name for path in (ROOT / "snippets").glob("*.md"))
+        tracked_assets = subprocess.check_output(
+            ["git", "ls-files", "--", "prompts", "snippets"],
+            cwd=ROOT,
+            text=True,
+        ).splitlines()
+        prompts = sorted(
+            Path(path).name
+            for path in tracked_assets
+            if path.startswith("prompts/") and path.endswith(".md")
+        )
+        snippets = sorted(
+            Path(path).name
+            for path in tracked_assets
+            if path.startswith("snippets/") and path.endswith(".md")
+        )
         self.assertEqual(len(prompts), 6)
         self.assertEqual(
             snippets,
             ["about-me.example.md", "deployment-loaders.md", "prompt-preamble.md"],
+        )
+        self.assertEqual(
+            subprocess.run(
+                ["git", "check-ignore", "-q", "snippets/about-me.md"],
+                cwd=ROOT,
+                check=False,
+            ).returncode,
+            0,
         )
         readme = read("README.md")
         for name in prompts:
