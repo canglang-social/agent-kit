@@ -27,13 +27,12 @@ scope and `CLAUDE.md` for conventions.
     the behavior and installed-package version authorities.
   - `.mcp.json` — MCP server configs when present. Core currently has no MCP.
 - `prompts/` — raw copy-paste chat prompts (versioned, shared as text, not installed).
-- `snippets/` — reusable CLAUDE.md fragments (reference library, not installed).
+- `snippets/` — reusable user-instruction fragments (reference library, not installed).
   `about-me.md` holds the user profile — it is gitignored (personal data
-  never publishes); copy `about-me.example.md`, fill it in, and @import it
-  from `~/.claude/CLAUDE.md` (one line:
-  `@/path/to/agent-kit/snippets/about-me.md` — live at every session, no
-  re-sync). Skills reference the profile (language, knowledge-base location)
-  instead of embedding it.
+  never publishes); copy `about-me.example.md` and fill it in. Claude Code can
+  `@import` it from `~/.claude/CLAUDE.md`; Codex uses the explicit owner-opt-in
+  block in `snippets/deployment-loaders.md`, appended to the existing
+  `~/.codex/AGENTS.md`. Installing Core never activates private context.
 
 ## Install into a project
 
@@ -60,6 +59,22 @@ codex plugin add core@agent-kit
 
 The repo/team marketplace must be added explicitly. Start a new Codex task in
 the target workspace after install so skill discovery starts cleanly.
+
+### Private profile delivery
+
+Core installation and private-profile delivery are separate opt-ins:
+
+| Surface | Private profile delivery | Boundary |
+| --- | --- | --- |
+| Claude Code | `@<absolute path>/snippets/about-me.md` in `~/.claude/CLAUDE.md` | Native Claude include; the file remains ignored by Git. |
+| Codex | Append the reviewed global block from `snippets/deployment-loaders.md` to the existing `~/.codex/AGENTS.md`, then start a new task. | Explicit exact-file read; do not rely on Claude `@import`, a plugin hook, or plugin installation. |
+| claude.ai Projects | One private Drive `.docx` mirror attached as project knowledge. | The private payload never enters the public repository. |
+
+The Codex loader fails closed when the exact file is unavailable, does not
+search for private roots, and treats provider-specific Claude mechanics as
+reference-only. “Local/private” means the payload is not published in this
+repository; the selected runtime still receives the content when it reads the
+file.
 
 Installed plugins are cached separately from the marketplace source. Updating
 the marketplace alone does not replace the installed copy. After changing an
@@ -133,10 +148,10 @@ skills. From a clean clone, use the exact pattern
 The three files under `snippets/` are also intentional file assets:
 
 - `snippets/about-me.example.md` — public profile template; copy to the
-  gitignored `snippets/about-me.md` and supply that private file explicitly.
-  Explain never discovers it.
-- `snippets/deployment-loaders.md` — Claude/Cowork loader guidance; it does not
-  activate a Codex plugin.
+  gitignored `snippets/about-me.md` and connect that private file through the
+  selected surface's explicit loader. Explain never discovers it.
+- `snippets/deployment-loaders.md` — Claude, Cowork, claude.ai, and Codex
+  loader guidance; it does not activate a plugin or publish private context.
 - `snippets/prompt-preamble.md` — prompt-authoring fragment.
 
 For any tracked snippet, `ask Codex to read <path> and follow it`. If a product
