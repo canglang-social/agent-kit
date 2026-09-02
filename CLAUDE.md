@@ -44,7 +44,7 @@ below.)
   context never discovers a profile or vault.
 - `plugins/<name>/.mcp.json` — MCP configs when present. Core currently has no MCP.
 - `prompts/` — raw chat prompts to copy-paste or share as text (not installed).
-- `snippets/` — reusable CLAUDE.md fragments (reference library; not installed).
+- `snippets/` — reusable user-instruction fragments (reference library; not installed).
 
 ## Commands
 
@@ -67,6 +67,10 @@ below.)
 - Raw prompts/snippets are not installed. From a clean clone,
   `ask Codex to read <path> and follow it`; file-inaccessible products require
   attaching or pasting that one selected asset.
+- Private all-project profile delivery is separate from Core installation:
+  Claude may use the owner-local `~/.claude/CLAUDE.md` import, while Codex uses
+  the owner-opt-in block in `snippets/deployment-loaders.md`, appended to the
+  existing `~/.codex/AGENTS.md` and verified from a new task.
 
 ## Asset frontmatter
 
@@ -118,8 +122,10 @@ shared body/capability and the Core manifests are the version authorities.
 - Do NOT put personal data (names, emails, machine paths, vault locations) in
   tracked files — this repo is public and every asset must work verbatim for a
   stranger. Assets say "read the user profile" instead of embedding specifics;
-  personal values live only in `~/.claude/CLAUDE.md` and the gitignored
-  `snippets/about-me.md` (template: `snippets/about-me.example.md`).
+  personal values live in the gitignored `snippets/about-me.md` (template:
+  `snippets/about-me.example.md`), while user-local delivery references may
+  live in `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`. Installing Core does
+  not activate either private delivery path.
 
 ## Gotchas
 

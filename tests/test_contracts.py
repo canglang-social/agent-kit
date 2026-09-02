@@ -198,11 +198,37 @@ class CatalogPrivacyAndHookTests(unittest.TestCase):
     def test_about_me_example_states_truth_without_private_payload(self) -> None:
         path = "snippets/about-me.example.md"
         text = read(path)
-        self.assertEqual(frontmatter(path)["version"], "0.5.1")
+        self.assertEqual(frontmatter(path)["version"], "0.6.0")
+        self.assertEqual(frontmatter(path)["last-tested"], "2026-09-02")
         self.assertIn("Learn may use owner-supplied profile and vault data", text)
         self.assertIn("Explain uses only session-supplied background and language", text)
         self.assertNotIn("Learning skills (learn, explain) read this profile", text)
+        self.assertIn("EXISTING ~/.codex/AGENTS.md", text)
+        self.assertIn("Installing Core does not activate it", text)
+        self.assertIn("private Drive .docx mirror", text)
         self.assertNotRegex(text, r"/Users/[^<\s]+")
+
+    def test_codex_private_profile_loader_is_explicit_and_fail_closed(self) -> None:
+        loader_path = "snippets/deployment-loaders.md"
+        loader = read(loader_path)
+        readme = read("README.md")
+        contributor = read("CLAUDE.md")
+        self.assertEqual(frontmatter(loader_path)["version"], "0.3.0")
+        self.assertEqual(frontmatter(loader_path)["last-tested"], "2026-09-02")
+        self.assertIn("~/.codex/AGENTS.md", loader)
+        self.assertIn("<absolute path to agent-kit>/snippets/about-me.md", loader)
+        self.assertIn("PRIVATE_PROFILE_NOT_LOADED", loader)
+        self.assertIn("do not search for a substitute", loader)
+        self.assertIn("reference-only, not as Codex runtime facts", loader)
+        self.assertIn("Installing the public Core plugin does **not** activate", loader)
+        self.assertIn("Installing Core never activates private context", readme)
+        self.assertIn("then start a new task", readme)
+        self.assertIn("reusable user-instruction fragments", contributor)
+        self.assertIn("existing `~/.codex/AGENTS.md`", contributor)
+        self.assertIn("Installing Core does\n  not activate", contributor)
+        self.assertNotRegex(loader, r"/Users/[^<\s]+")
+        self.assertFalse((CORE / "hooks").exists())
+        self.assertNotIn("hooks", load_json(CORE / ".codex-plugin" / "plugin.json"))
 
     def test_codex_hook_is_post_tool_use_and_non_mutating(self) -> None:
         hook = load_json(".codex/hooks.json")

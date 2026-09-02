@@ -1,20 +1,24 @@
 ---
 name: about-me-example
-description: Template for the user profile fragment in ~/.claude/CLAUDE.md — identity, language preference, knowledge-base conventions. Skills reference the profile instead of embedding personal data.
-version: 0.5.1
-tags: [profile, claude-md-fragment, template]
-last-tested: 2026-07-10
+description: Template for a private user-profile fragment delivered through explicit runtime loaders — identity, language preference, and knowledge-base conventions
+version: 0.6.0
+tags: [profile, user-instructions-fragment, template]
+last-tested: 2026-09-02
 ---
 
 <!-- Copy to snippets/about-me.md (gitignored — personal data never publishes)
 and fill it in. Your copy is UPSTREAM — every other copy mirrors it. Flows:
 1. Claude Code: @import it from ~/.claude/CLAUDE.md with one line
    (@/path/to/agent-kit/snippets/about-me.md) — live at every session.
-2. claude.ai project knowledge: keep ONE Google Doc mirror of the body and
-   paste updates into it (Google-native Docs can't be updated from disk).
-   Add the doc's URL to your copy's header so the paste is one click away.
-3. Record any other mirror in your copy's header checklist as you add it.
-4. Drifted? Ask Claude Code to "check profile drift" — it can read each mirror
+2. Codex: append the owner-opt-in block from snippets/deployment-loaders.md to
+   the EXISTING ~/.codex/AGENTS.md, replace its placeholder with this exact
+   private path, then start a new task. Installing Core does not activate it;
+   the block is an explicit file-read instruction, not an @import.
+3. claude.ai project knowledge: keep ONE private Drive .docx mirror of the
+   body and attach it to each project. Overwrite the same file from disk so its
+   Drive id stays stable; do not put the private payload in GitHub knowledge.
+4. Record any other mirror in your copy's header checklist as you add it.
+5. Drifted? Ask a file-capable runtime to "check profile drift" — it can read each mirror
    and diff it against this upstream copy. -->
 
 ## About me (user profile)

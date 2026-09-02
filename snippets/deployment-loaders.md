@@ -1,8 +1,9 @@
 ---
 name: deployment-loaders
-description: Thin-loader instruction blocks — a deployment references its prompt in this repo instead of containing a pasted copy, so repo edits update the deployment
-version: 0.2.0
+description: Thin-loader instruction blocks for file-access and knowledge-backed AI surfaces, including an owner-opt-in Codex global private-profile loader
+version: 0.3.0
 tags: [prompting, deployment, template]
+last-tested: 2026-09-02
 ---
 
 # Deployment loaders
@@ -12,6 +13,40 @@ of these loader blocks as the project's instructions ONCE; after that,
 editing the prompt in this repo updates the deployment (Cowork: at the next
 session; claude.ai: after one knowledge re-sync click). The loader itself
 never needs to change again.
+
+## Codex global private profile (owner opt-in)
+
+Use this only for private owner context that should be available in every Codex
+project. Installing the public Core plugin does **not** activate the profile.
+Preserve the user's existing `~/.codex/AGENTS.md`, append this block once, replace
+the placeholder with the exact private path, and start a new Codex task:
+
+```text
+## Private profile loader
+
+Before answering or acting in each new task, read exactly the
+`## About me (user profile)` section of:
+`<absolute path to agent-kit>/snippets/about-me.md`.
+
+- Treat it as owner-authorized private user-level context. Do not quote or
+  reproduce private profile content unless the owner explicitly asks.
+- Apply its provider-neutral identity, preferences, and cross-project rules
+  only where they do not conflict with system/developer instructions or the
+  nearest project `AGENTS.md`.
+- In Codex, treat Claude Code/claude.ai loader syntax, slash-command names,
+  plugin or skill discovery claims, and Claude-specific agent-topology
+  mechanics as reference-only, not as Codex runtime facts.
+- If the exact file or section is missing or unreadable, say
+  `PRIVATE_PROFILE_NOT_LOADED`; do not search for a substitute or infer missing
+  private facts.
+```
+
+This is an explicit Codex instruction to read one exact local file, not a
+Claude-style `@import`. Do not replace an existing global file, use
+`AGENTS.override.md`, search for private roots, or copy the private payload into
+this public repository. A local-only file is not public on GitHub, but its
+contents are still supplied to the Codex task when the loader reads it; keep
+only context the owner intends to disclose to that runtime.
 
 ## Cowork project (has file access)
 
@@ -72,6 +107,10 @@ knowledge (one click). The instructions are never edited again.
 - The user profile in `~/.claude/CLAUDE.md` uses a stronger mechanism: an
   @import (`@<absolute path to agent-kit>/snippets/about-me.md`) — live at
   every session start, no sync step at all.
+- Codex does not use that Claude `@import` as a documented include mechanism.
+  Use the explicit global loader above, preserve any existing global
+  instructions, and verify from a fresh task. The loader is user-level setup,
+  not installed Core content.
 - `last-tested` in a prompt's frontmatter still gets bumped after a real
   session on the deployed surface; loaders don't change that convention.
   It is now audited rather than trusted: ai-chief-of-staff warns when an
